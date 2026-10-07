@@ -19,6 +19,11 @@ final favoriteFoodsStreamProvider = StreamProvider<List<Food>>((ref) {
   return repo.watchFavorites();
 });
 
+final customFoodsStreamProvider = StreamProvider<List<Food>>((ref) {
+  final repo = ref.watch(foodRepositoryProvider);
+  return repo.watchCustomFoods();
+});
+
 Future<void> initializeFoodsSeed(WidgetRef ref) async {
   final prefs = ref.read(sharedPreferencesProvider);
   final savedVersion = prefs.getInt('foods_seed_version') ?? 0;

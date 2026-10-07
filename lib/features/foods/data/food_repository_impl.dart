@@ -96,6 +96,15 @@ class FoodRepositoryImpl implements FoodRepository {
   }
 
   @override
+  Stream<List<Food>> watchCustomFoods() {
+    final query = _db.select(_db.foods)
+      ..where((tbl) => tbl.isCustom.equals(true))
+      ..orderBy([(tbl) => OrderingTerm.asc(tbl.nameVi)]);
+
+    return query.watch().map((rows) => rows.map(_toEntity).toList());
+  }
+
+  @override
   Future<List<Food>> getAllFoods() async {
     final rows = await (_db.select(_db.foods)..orderBy([(tbl) => OrderingTerm.asc(tbl.nameVi)])).get();
     return rows.map(_toEntity).toList();

@@ -31,12 +31,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       final hasProfile = profileAsync.value != null;
       final isGoingToOnboarding = state.matchedLocation.startsWith('/onboarding');
+      final isEditing = state.uri.queryParameters['isEditing'] == 'true';
 
       if (!hasProfile && !isGoingToOnboarding) {
         return '/onboarding';
       }
 
-      if (hasProfile && isGoingToOnboarding) {
+      if (hasProfile && isGoingToOnboarding && !isEditing) {
         return '/';
       }
 
@@ -85,12 +86,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/onboarding',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const OnboardingScreen(),
+        builder: (context, state) {
+          final isEditing = state.uri.queryParameters['isEditing'] == 'true';
+          return OnboardingScreen(isEditing: isEditing);
+        },
         routes: [
           GoRoute(
             path: 'summary',
             parentNavigatorKey: _rootNavigatorKey,
-            builder: (context, state) => const OnboardingSummaryScreen(),
+            builder: (context, state) {
+              final isEditing = state.uri.queryParameters['isEditing'] == 'true';
+              return OnboardingSummaryScreen(isEditing: isEditing);
+            },
           ),
         ],
       ),

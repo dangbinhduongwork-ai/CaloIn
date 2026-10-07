@@ -17,6 +17,20 @@ class OnboardingDraft {
     this.isGoalManual = false,
   });
 
+  factory OnboardingDraft.fromUserProfile(UserProfile p) {
+    return OnboardingDraft(
+      gender: p.gender,
+      age: p.age,
+      heightCm: p.heightCm,
+      weightKg: p.weightKg,
+      activityLevel: p.activityLevel,
+      goal: p.goal,
+      macroSplit: p.macroSplit,
+      customDailyGoalKcal: p.isGoalManual ? p.dailyGoalKcal : null,
+      isGoalManual: p.isGoalManual,
+    );
+  }
+
   final Gender gender;
   final int age;
   final double heightCm;

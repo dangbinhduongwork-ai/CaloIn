@@ -11,7 +11,9 @@ import '../domain/profile_enums.dart';
 import '../domain/profile_validator.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({this.isEditing = false, super.key});
+
+  final bool isEditing;
 
   @override
   ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -181,7 +183,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         );
       });
 
-      context.push('/onboarding/summary');
+      if (widget.isEditing) {
+        context.push('/onboarding/summary?isEditing=true');
+      } else {
+        context.push('/onboarding/summary');
+      }
     }
   }
 
@@ -203,7 +209,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 icon: const Icon(Icons.arrow_back_rounded),
                 onPressed: _onBack,
               )
-            : null,
+            : (widget.isEditing
+                ? IconButton(
+                    icon: const Icon(Icons.close_rounded),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                : null),
       ),
       body: SafeArea(
         child: Column(

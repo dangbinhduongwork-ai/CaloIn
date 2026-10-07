@@ -13,7 +13,9 @@ import '../domain/macro_split.dart';
 import 'widgets/macro_ratio_selector.dart';
 
 class OnboardingSummaryScreen extends ConsumerStatefulWidget {
-  const OnboardingSummaryScreen({super.key});
+  const OnboardingSummaryScreen({this.isEditing = false, super.key});
+
+  final bool isEditing;
 
   @override
   ConsumerState<OnboardingSummaryScreen> createState() => _OnboardingSummaryScreenState();
@@ -131,7 +133,14 @@ class _OnboardingSummaryScreenState extends ConsumerState<OnboardingSummaryScree
     await prefs.setBool(AppConstants.prefHasCompletedOnboarding, true);
 
     if (mounted) {
-      context.go('/');
+      if (widget.isEditing) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Đã cập nhật hồ sơ thành công')),
+        );
+        context.go('/settings');
+      } else {
+        context.go('/');
+      }
     }
   }
 
@@ -341,7 +350,7 @@ class _OnboardingSummaryScreenState extends ConsumerState<OnboardingSummaryScree
               // Get Started Button
               FilledButton(
                 onPressed: _macroSplit.isValid ? _completeOnboarding : null,
-                child: Text(l10n.getStarted),
+                child: Text(widget.isEditing ? 'Lưu thay đổi' : l10n.getStarted),
               ),
             ],
           ),

@@ -13,6 +13,9 @@ abstract class FoodRepository {
   /// Stream of favorite foods.
   Stream<List<Food>> watchFavorites();
 
+  /// Stream of user-created custom foods.
+  Stream<List<Food>> watchCustomFoods();
+
   /// Get all foods.
   Future<List<Food>> getAllFoods();
 

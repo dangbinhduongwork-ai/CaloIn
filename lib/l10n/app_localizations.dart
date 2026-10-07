@@ -147,6 +147,26 @@ abstract class AppLocalizations {
   String get historySummaryTitle;
   String get mealsBreakdown;
   String get chartSemantics;
+  String get profileSection;
+  String get editGoals;
+  String get editFullProfile;
+  String get weightUnitLabel;
+  String get heightUnitLabel;
+  String get appearanceLanguageSection;
+  String get vietnamese;
+  String get english;
+  String get dataSection;
+  String get manageFoods;
+  String get manageFoodsSubtitle;
+  String get aboutApp;
+  String get aboutAppSubtitle;
+  String get clearAndReset;
+  String get profileUpdatedSuccess;
+  String get goalsUpdatedSuccess;
+  String get appVersionLabel;
+  String get safeFloorInfo;
+  String get medicalDisclaimerFull;
+  String get dataSourceInfo;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -547,6 +567,66 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chartSemantics => 'Biểu đồ calo và dinh dưỡng';
+
+  @override
+  String get profileSection => 'Hồ sơ & Mục tiêu';
+
+  @override
+  String get editGoals => 'Sửa mục tiêu & Macro';
+
+  @override
+  String get editFullProfile => 'Sửa thông tin cá nhân';
+
+  @override
+  String get weightUnitLabel => 'Đơn vị cân nặng';
+
+  @override
+  String get heightUnitLabel => 'Đơn vị chiều cao';
+
+  @override
+  String get appearanceLanguageSection => 'Giao diện & Ngôn ngữ';
+
+  @override
+  String get vietnamese => 'Tiếng Việt';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get dataSection => 'Quản lý dữ liệu';
+
+  @override
+  String get manageFoods => 'Thư viện & Món tùy chỉnh';
+
+  @override
+  String get manageFoodsSubtitle => 'Xem món ăn, tạo và quản lý món tùy chỉnh';
+
+  @override
+  String get aboutApp => 'Giới thiệu & Phương pháp tính';
+
+  @override
+  String get aboutAppSubtitle => 'Phiên bản, công thức Mifflin-St Jeor, nguồn đối chiếu và lưu ý y tế';
+
+  @override
+  String get clearAndReset => 'Xóa và Đặt lại';
+
+  @override
+  String get profileUpdatedSuccess => 'Đã cập nhật hồ sơ thành công';
+
+  @override
+  String get goalsUpdatedSuccess => 'Đã cập nhật mục tiêu thành công';
+
+  @override
+  String get appVersionLabel => 'Phiên bản: 1.0.0';
+
+  @override
+  String get safeFloorInfo => 'Mức sàn calo an toàn: Nữ tối thiểu 1200 kcal/ngày, Nam tối thiểu 1500 kcal/ngày.';
+
+  @override
+  String get medicalDisclaimerFull => 'CaloIn chỉ dành cho người từ 18 tuổi trở lên. Ứng dụng cung cấp ước lượng tham khảo và không thay thế tư vấn y tế, chẩn đoán hoặc điều trị từ bác sĩ hay chuyên gia dinh dưỡng.';
+
+  @override
+  String get dataSourceInfo => 'Dữ liệu dinh dưỡng được biên soạn từ Bảng thành phần thực phẩm Việt Nam (Viện Dinh Dưỡng) và USDA FoodData Central, đối chiếu kiểm tra chéo theo công thức Atwater (sai số ≤ 20%).';
 }
 
 class AppLocalizationsEn extends AppLocalizations {
@@ -929,4 +1009,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chartSemantics => 'Calories and nutrition chart';
+
+  @override
+  String get profileSection => 'Profile & Goals';
+
+  @override
+  String get editGoals => 'Edit Goals & Macros';
+
+  @override
+  String get editFullProfile => 'Edit Personal Info';
+
+  @override
+  String get weightUnitLabel => 'Weight Unit';
+
+  @override
+  String get heightUnitLabel => 'Height Unit';
+
+  @override
+  String get appearanceLanguageSection => 'Appearance & Language';
+
+  @override
+  String get vietnamese => 'Tiếng Việt';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get dataSection => 'Data Management';
+
+  @override
+  String get manageFoods => 'Food Library & Custom Foods';
+
+  @override
+  String get manageFoodsSubtitle => 'Browse foods, create and manage custom items';
+
+  @override
+  String get aboutApp => 'About & Calculation Methods';
+
+  @override
+  String get aboutAppSubtitle => 'Version, Mifflin-St Jeor formulas, sources & medical disclaimer';
+
+  @override
+  String get clearAndReset => 'Clear & Reset';
+
+  @override
+  String get profileUpdatedSuccess => 'Profile updated successfully';
+
+  @override
+  String get goalsUpdatedSuccess => 'Goals updated successfully';
+
+  @override
+  String get appVersionLabel => 'Version: 1.0.0';
+
+  @override
+  String get safeFloorInfo => 'Safe calorie floor: Female min 1200 kcal/day, Male min 1500 kcal/day.';
+
+  @override
+  String get medicalDisclaimerFull => 'CaloIn is strictly for adults 18+. Estimates are for informational purposes and do not replace professional medical advice, diagnosis, or treatment.';
+
+  @override
+  String get dataSourceInfo => 'Nutritional data is compiled from the National Institute of Nutrition (Vietnam) and USDA FoodData Central, cross-checked with Atwater factors (deviation ≤ 20%).';
 }

@@ -4,23 +4,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_constants.dart';
 import '../theme/theme_provider.dart';
 
-final localeProvider = StateNotifierProvider<LocaleNotifier, Locale>((ref) {
+final localeProvider = StateNotifierProvider<LocaleNotifier, Locale?>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return LocaleNotifier(prefs);
 });
 
-class LocaleNotifier extends StateNotifier<Locale> {
+class LocaleNotifier extends StateNotifier<Locale?> {
   LocaleNotifier(this._prefs) : super(_loadInitial(_prefs));
 
   final SharedPreferences _prefs;
 
-  static Locale _loadInitial(SharedPreferences prefs) {
-    final languageCode = prefs.getString(AppConstants.prefLanguage) ?? 'vi';
+  static Locale? _loadInitial(SharedPreferences prefs) {
+    final languageCode = prefs.getString(AppConstants.prefLanguage);
+    if (languageCode == null || languageCode == 'system') {
+      return null;
+    }
     return Locale(languageCode);
   }
 
-  Future<void> setLocale(Locale locale) async {
+  Future<void> setLocale(Locale? locale) async {
     state = locale;
-    await _prefs.setString(AppConstants.prefLanguage, locale.languageCode);
+    if (locale == null) {
+      await _prefs.setString(AppConstants.prefLanguage, 'system');
+    } else {
+      await _prefs.setString(AppConstants.prefLanguage, locale.languageCode);
+    }
   }
 }

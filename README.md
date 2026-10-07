@@ -1,25 +1,63 @@
-# CaloIn - Ứng dụng Ghi nhật ký & Theo dõi Calo nạp vào
+# CaloIn - Ứng dụng Ghi Nhật Ký & Theo Dõi Calo Nạp Vào
 
-CaloIn là ứng dụng Flutter theo dõi calo nạp vào (Calories In) và các dưỡng chất đa lượng (protein, carb, fat) mỗi ngày, hoạt động hoàn toàn offline, lưu trữ dữ liệu cục bộ, giao diện Material 3 hỗ trợ Tiếng Việt và English.
-
----
-
-## Tech Stack & Thư viện Cốt lõi
-
-1. **`drift: ^2.18.0`**: Lớp ORM/Query builder kiểu tĩnh (type-safe) cho SQLite trong Dart. Giúp quản lý schema, quan hệ bảng, streaming reactive queries (`watch()`) và di chuyển cơ sở dữ liệu (migration).
-2. **`drift_dev: ^2.18.0`**: Code generator tạo mã nguồn tự động cho Drift tables, classes mapping, và update companions.
-3. **`build_runner: ^2.4.9`**: Công cụ chạy build step sinh code chuẩn của hệ sinh thái Dart/Flutter.
-4. **`sqlite3_flutter_libs: ^0.5.24`**: Cung cấp binary SQLite C native mới nhất được đóng gói sẵn cho Android, iOS, Windows, macOS, Linux, đảm bảo hiệu năng và tính tương thích nền tảng cao nhất.
-5. **`flutter_riverpod: ^2.5.1`**: Quản lý trạng thái và Dependency Injection hiện đại, không phụ thuộc BuildContext.
-6. **`go_router: ^14.2.0`**: Điều hướng phân cấp với `StatefulShellRoute` cho thanh điều hướng 3 tab chính: Hôm nay, Lịch sử, Cài đặt (giữ trạng thái từng tab).
-7. **`fl_chart: ^0.68.0`**: Biểu đồ phân tích calo và xu hướng theo thời gian.
-8. **`shared_preferences: ^2.2.3`**: Lưu trữ cục bộ các cài đặt nhẹ (hồ sơ, theme, ngôn ngữ, phiên bản seed).
+CaloIn là ứng dụng di động Flutter chuyên biệt theo dõi năng lượng nạp vào (**Calories In**) và các dưỡng chất đa lượng (**Macro**: protein, carb, fat) mỗi ngày. Ứng dụng hoạt động **hoàn toàn offline**, lưu trữ dữ liệu cục bộ bảo mật trên thiết bị, giao diện Material 3 hiện đại, hỗ trợ song ngữ Tiếng Việt và English.
 
 ---
 
-## Lệnh sinh mã nguồn (Code Generation)
+## Ảnh Chụp Màn Hình (Screenshots)
 
-Khi cập nhật cấu trúc bảng trong `lib/core/database/app_database.dart`, chạy lệnh sau trong terminal:
+| Hôm nay (Dashboard) | Thư viện Món ăn | Lịch sử (fl_chart) | Cài đặt |
+| :---: | :---: | :---: | :---: |
+| *(Chỗ trống ảnh màn hình Hôm nay)* | *(Chỗ trống ảnh Thư viện món ăn)* | *(Chỗ trống ảnh Biểu đồ lịch sử)* | *(Chỗ trống ảnh Cài đặt)* |
+
+---
+
+## Yêu Cầu Môi Trường & Cài Đặt
+
+- **Flutter SDK**: `>= 3.3.0` (Khuyến nghị Flutter 3.19.x hoặc mới nhất)
+- **Dart SDK**: `>= 3.3.0 < 4.0.0`
+- **Hệ điều hành hỗ trợ**: Android (API level 21 trở lên), iOS (iOS 12.0 trở lên)
+- **Công cụ phát triển**: Android Studio, VS Code hoặc Antigravity IDE
+
+---
+
+## Hướng Dẫn Chạy Dự Án
+
+1. **Cài đặt thư viện dependencies:**
+   ```bash
+   flutter pub get
+   ```
+
+2. **Chạy ứng dụng trong môi trường phát triển:**
+   ```bash
+   flutter run
+   ```
+
+3. **Chạy kiểm thử tự động (Unit & Widget Tests):**
+   ```bash
+   flutter test
+   ```
+
+4. **Chạy Integration Tests (End-to-End):**
+   ```bash
+   flutter test integration_test/app_flow_test.dart
+   ```
+
+5. **Kiểm tra cú pháp và chất lượng mã nguồn:**
+   ```bash
+   flutter analyze
+   ```
+
+6. **Đóng gói bản cài đặt Android Release:**
+   ```bash
+   flutter build apk --release
+   ```
+
+---
+
+## Lệnh Sinh Mã Nguồn (Code Generation)
+
+Dự án sử dụng Drift ORM cho cơ sở dữ liệu SQLite. File `app_database.g.dart` đã được cấu hình sẵn. Khi cập nhật bảng dữ liệu trong `lib/core/database/app_database.dart`, chạy lệnh sau để sinh lại mã nguồn:
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
@@ -27,63 +65,106 @@ dart run build_runner build --delete-conflicting-outputs
 
 ---
 
-## Cấu trúc Cơ sở dữ liệu SQLite (Drift)
+## Cấu Trúc Thư Mục Dự Án
 
-- **Bảng `foods`**:
-  - `id`: Khóa chính tự tăng (Integer).
-  - `seed_key`: Định danh ổn định của món seed (Nullable, Unique), phục vụ việc nâng cấp seed không ghi đè dữ liệu người dùng.
-  - `name_vi`, `name_en`: Tên tiếng Việt và tiếng Anh.
-  - `search_key`: Chuỗi chuẩn hóa không dấu dùng cho tìm kiếm tiếng Việt tốc độ cao.
-  - `kcal_per100g`, `protein_per100g`, `carb_per100g`, `fat_per100g`: Dinh dưỡng trên 100g.
-  - `default_serving_grams`, `serving_label_key`: Khẩu phần mặc định và nhãn (bát, đĩa, cái, ly...).
-  - `category`: Nhóm thực phẩm (`carb`, `meat`, `fish_seafood`, `egg_dairy`, `vegetable`, `fruit`, `drink`, `snack`, `other`).
-  - `is_custom`: Đánh dấu món do người dùng tự tạo.
-  - `is_favorite`: Đánh dấu món yêu thích.
-  - `data_quality`: Trạng thái kiểm chứng dữ liệu (`estimated` hoặc `custom`).
-
-- **Bảng `food_logs`**:
-  - `id`: Khóa chính chuỗi GUID/UUID.
-  - `food_id`: Mã món ăn (Nullable, không ràng buộc cứng để khi xóa món tùy chỉnh không mất nhật ký).
-  - `food_name_snapshot`: Tên món chụp lại tại thời điểm ghi.
-  - `meal_type`: Bữa ăn (`breakfast`, `lunch`, `dinner`, `snack`).
-  - `grams`: Khối lượng tiêu thụ (Nullable khi là Thêm nhanh calo).
-  - `kcal`, `protein`, `carb`, `fat`: Snapshot dinh dưỡng tính tại thời điểm ăn.
-  - `is_quick_add`: Đánh dấu mục thêm nhanh calo.
-  - `logged_at`: Thời điểm ghi nhật ký (Đã đánh chỉ mục `idx_food_logs_logged_at`).
+```
+lib/
+├── core/                               # Các thành phần dùng chung toàn app
+│   ├── constants/                      # Hằng số (AppConstants)
+│   ├── database/                       # Drift SQLite (AppDatabase, tables)
+│   ├── localization/                   # Quản lý LocaleProvider
+│   ├── router/                         # GoRouter (app_router, bottom navigation)
+│   ├── theme/                          # AppColors, AppTheme, ThemeProvider
+│   └── utils/                          # Bộ chuyển đổi đơn vị, chuẩn hóa tiếng Việt
+├── features/                           # Kiến trúc Feature-driven
+│   ├── dashboard/                      # Tab Hôm nay: vòng tiến độ, thanh macro, bữa ăn
+│   ├── diary/                          # Ghi món, sửa, xóa, sao chép bữa, quick-add
+│   ├── foods/                          # Thư viện món ăn, tìm kiếm không dấu, món tùy chỉnh
+│   ├── history/                        # Tab Lịch sử: fl_chart tuần/tháng, pure-Dart aggregator
+│   ├── profile/                        # Onboarding 4 bước, BMR/TDEE, mục tiêu calo, macro
+│   └── settings/                       # Tab Cài đặt: hồ sơ, đơn vị, ngôn ngữ, theme, xóa data
+├── l10n/                               # Đa ngôn ngữ (.arb, AppLocalizations)
+└── main.dart                           # Entrypoint khởi tạo SharedPreferences, ProviderScope
+```
 
 ---
 
-## Giả định Khung giờ Phân bổ Bữa ăn Tự động
+## Tech Stack & Thư Viện Cốt Lõi
 
-Khi người dùng mở màn hình ghi món ăn, hệ thống sẽ tự động gợi ý bữa ăn mặc định dựa trên khung giờ sinh hoạt tiêu chuẩn:
+1. **`flutter_riverpod: ^2.5.1`**: Quản lý trạng thái và Dependency Injection hiện đại, không phụ thuộc BuildContext.
+2. **`go_router: ^14.2.0`**: Điều hướng phân cấp với `StatefulShellRoute.indexedStack` cho thanh điều hướng 3 tab chính (giữ trạng thái từng tab).
+3. **`drift: ^2.18.0`**: ORM tĩnh kiểu type-safe cho SQLite trong Dart với reactive stream query (`watch()`).
+4. **`sqlite3_flutter_libs: ^0.5.24`**: Binary SQLite C native nhúng sẵn cho Android/iOS.
+5. **`fl_chart: ^0.68.0`**: Biểu đồ cột phân tích calo và thanh xếp chồng macro (Protein/Carb/Fat).
+6. **`shared_preferences: ^2.2.3`**: Lưu trữ cục bộ hồ sơ cá nhân, cài đặt đơn vị, theme và locale.
+7. **`intl: ^0.19.0`**: Định dạng ngày tháng, số liệu theo bản địa hóa.
+
+---
+
+## Công Thức Dinh Dưỡng & Giả Định Tính Toán
+
+### 1. Công thức BMR (Mifflin-St Jeor)
+- **Nam**:
+  $$\text{BMR} = 10 \times \text{Cân nặng (kg)} + 6.25 \times \text{Chiều cao (cm)} - 5 \times \text{Tuổi} + 5$$
+- **Nữ**:
+  $$\text{BMR} = 10 \times \text{Cân nặng (kg)} + 6.25 \times \text{Chiều cao (cm)} - 5 \times \text{Tuổi} - 161$$
+
+### 2. Tổng tiêu hao năng lượng hằng ngày (TDEE)
+$$\text{TDEE} = \text{BMR} \times \text{Hệ số vận động}$$
+- Ít vận động (Sedentary): `1.2`
+- Vận động nhẹ (Light): `1.375`
+- Vận động vừa (Moderate): `1.55`
+- Vận động nhiều (Very Active): `1.725`
+- Rất nhiều (Extra Active): `1.9`
+
+### 3. Mục tiêu Calo hằng ngày (Daily Goal)
+- **Giữ cân**: $\text{Target} = \text{TDEE}$
+- **Giảm cân**: $\text{Target} = \text{TDEE} - 500\text{ kcal/ngày}$
+- **Tăng cân**: $\text{Target} = \text{TDEE} + 300\text{ kcal/ngày}$
+- Kết quả được làm tròn đến $10\text{ kcal}$ gần nhất.
+
+### 4. Mức sàn calo an toàn (Safe Calorie Floors)
+- **Nữ**: Tối thiểu **1,200 kcal/ngày**
+- **Nam**: Tối thiểu **1,500 kcal/ngày**
+- Khi tính toán hoặc nhập thủ công dưới mức sàn, hệ thống hiển thị cảnh báo y tế rõ ràng.
+
+### 5. Khung giờ gợi ý bữa ăn mặc định
 - **05:00 – 10:00**: Bữa sáng (`MealType.breakfast`)
 - **10:00 – 14:00**: Bữa trưa (`MealType.lunch`)
 - **14:00 – 17:00**: Bữa phụ chiều (`MealType.snack`)
 - **17:00 – 22:00**: Bữa tối (`MealType.dinner`)
-- **Ngoài các khung giờ trên**: Bữa phụ đêm / sáng sớm (`MealType.snack`)
+- **Các giờ khác**: Bữa phụ (`MealType.snack`)
+
+### 6. Giả định Lịch sử & Mục tiêu
+- **Mục tiêu calo quá khứ**: So sánh trực tiếp với mục tiêu calo hiện tại của hồ sơ (không lưu biến động mục tiêu theo từng ngày).
+- **Tính toán trung bình**: Ngày không ghi chép **KHÔNG** bị tính là 0 kcal; trung bình chỉ tính trên các ngày thực sự có bản ghi ($$\text{Trung bình} = \frac{\sum \text{Dinh dưỡng ngày có ghi}}{\text{Số ngày có ghi}}$$).
+- **Quy ước lịch tuần**: Luôn bắt đầu từ **thứ Hai** (Monday) và kết thúc vào **Chủ Nhật** (Sunday).
+- **Trải nghiệm không phán xét (Non-judgmental UX)**: Không tô đỏ cảnh báo hoảng loạn khi vượt calo; dùng màu trung tính `#0D9488` (Emerald Mint) hoặc hổ phách ấm `#D97706`.
 
 ---
 
-## Dữ liệu hạt giống & Kiểm tra Atwater
+## Dữ Liệu Món Ăn, Nâng Cấp Seed & Kiểm Tra Atwater
 
-- Dữ liệu 89 món ăn phổ biến được lưu tại `assets/data/foods_seed.json`.
-- Tất cả các món ăn được kiểm tra chéo tự động bằng phương trình Atwater:
-  $$\text{kcal} \approx \text{protein} \times 4 + \text{carb} \times 4 + \text{fat} \times 9$$
-- Sai số tối đa cho phép là $20\%$ đối với các món ăn thông thường (các món đặc thù như rượu/cà phê đen/trà có cờ `atwaterCheckExempt: true`).
-- Chi tiết các món cần rà soát thêm có trong `docs/FOOD_DATA_TODO.md`.
+### 1. Trạng thái dữ liệu "Estimated"
+- 89 món ăn phổ biến ban đầu được lưu tại `assets/data/foods_seed.json` với trạng thái `dataQuality: estimated`.
+- Dữ liệu được tổng hợp từ Bảng thành phần thực phẩm Việt Nam (Viện Dinh Dưỡng Quốc Gia) và USDA FoodData Central.
+- Mọi món ăn được kiểm tra chéo tự động theo phương trình Atwater:
+  $$\text{kcal} \approx \text{protein} \times 4 + \text{carb} \times 4 + \text{fat} \times 9 \quad (\text{sai số} \le 20\%)$$
+- Chi tiết các món cần rà soát thêm được ghi nhận trong `docs/FOOD_DATA_TODO.md`.
+
+### 2. Quy trình Cập nhật Dữ liệu Món ăn & Tăng SeedVersion
+Khi cần bổ sung hoặc cập nhật danh sách món ăn hạt giống:
+1. Chỉnh sửa file `assets/data/foods_seed.json`.
+2. Mở `lib/core/constants/app_constants.dart` và tăng hằng số `currentSeedVersion` (ví dụ từ `1` lên `2`).
+3. Khi người dùng mở app, phương thức `initializeFoodsSeed()` sẽ tự động chạy cơ chế **upsert**:
+   - Cập nhật thông tin calo, macro, tên món của các món seed dựa theo `seedKey`.
+   - Giữ nguyên trạng thái yêu thích (`isFavorite`) của người dùng.
+   - Tuyệt đối không xóa hay ảnh hưởng đến các món tùy chỉnh (`isCustom == true`) của người dùng.
 
 ---
 
-## Giả định Lịch sử & Mục tiêu Dinh dưỡng (History & Goals)
+## Giới Hạn Đã Biết (Known Limitations)
 
-1. **Mục tiêu calo cho các ngày quá khứ**:
-   - Các ngày đã qua trong quá khứ được so sánh trực tiếp với mục tiêu calo và macro hiện tại trong hồ sơ của người dùng (không lưu trữ lịch sử thay đổi mục tiêu theo từng ngày).
-2. **Tính toán trung bình không bị kéo tụt bởi ngày thiếu dữ liệu**:
-   - Những ngày không ghi chép **KHÔNG** bị coi là ngày ăn 0 kcal. Các chỉ số trung bình (kcal, protein, carb, fat) chỉ tính trên số ngày thực tế có ghi chép ($$\text{Trung bình} = \frac{\sum \text{Dinh dưỡng ngày có ghi}}{\text{Số ngày có ghi}}$$).
-3. **Quy ước lịch tuần**:
-   - Tuần bắt đầu từ thứ Hai (Monday) và kết thúc vào Chủ Nhật (Sunday) theo chuẩn ISO và văn hóa Việt Nam.
-4. **Không phán xét tiêu cực (Non-judgmental UX)**:
-   - Biểu đồ và thẻ thống kê giữ màu trung tính (`#0D9488` / Emerald Mint Green). Không tô đỏ cảnh báo hay phân loại "ngày tốt / ngày xấu", không đếm số ngày vượt/thiếu mục tiêu.
-5. **Dữ liệu mẫu 60 ngày (Debug Mode)**:
-   - Nút tạo 60 ngày dữ liệu mẫu chỉ kích hoạt trong môi trường `kDebugMode` và hoàn toàn được giấu/loại bỏ trong bản build Release. Dữ liệu mẫu cố tình để trống ~6 ngày để kiểm chứng tính năng xử lý ngày chưa ghi.
-
+1. **Phạm vi Calo**: Ứng dụng chỉ theo dõi lượng calo **nạp vào** (Calories In) và các dưỡng chất đa lượng; không theo dõi lượng calo tiêu hao khi luyện tập thể thao (tính năng thuộc ứng dụng CaloOut riêng).
+2. **Lưu trữ Cục bộ (Offline 100%)**: Dữ liệu lưu trong máy (SQLite & SharedPreferences), không có tài khoản và không đồng bộ đám mây (cloud sync) giữa nhiều thiết bị.
+3. **Chưa hỗ trợ quét mã vạch (Barcode Scanner)**: Người dùng nhập món qua tìm kiếm không dấu tốc độ cao, danh mục hoặc tạo món tùy chỉnh.
