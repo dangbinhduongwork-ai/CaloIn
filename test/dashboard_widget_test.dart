@@ -16,7 +16,6 @@ import 'package:caloin/features/diary/presentation/widgets/food_portion_bottom_s
 import 'package:caloin/features/foods/domain/food.dart';
 import 'package:caloin/features/foods/domain/nutrition.dart';
 import 'package:caloin/features/profile/data/profile_providers.dart';
-import 'package:caloin/features/profile/domain/macro_split.dart';
 import 'package:caloin/features/profile/domain/profile_enums.dart';
 import 'package:caloin/features/profile/domain/user_profile.dart';
 import 'package:caloin/l10n/app_localizations.dart';

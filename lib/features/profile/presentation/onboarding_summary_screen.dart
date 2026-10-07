@@ -10,6 +10,7 @@ import '../data/onboarding_draft_provider.dart';
 import '../data/profile_providers.dart';
 import '../domain/calorie_goal_calculator.dart';
 import '../domain/macro_split.dart';
+import '../domain/profile_enums.dart';
 import 'widgets/macro_ratio_selector.dart';
 
 class OnboardingSummaryScreen extends ConsumerStatefulWidget {

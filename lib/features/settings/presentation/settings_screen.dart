@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/database/app_database.dart';
 import '../../../core/database/database_provider.dart';
 import '../../../core/localization/locale_provider.dart';
 import '../../../core/theme/app_colors.dart';
@@ -691,7 +692,7 @@ class SettingsScreen extends ConsumerWidget {
       await (db.delete(db.foods)..where((t) => t.isCustom.equals(true))).go();
 
       // 3. Reset favorite status on seed foods
-      await (db.update(db.foods)).write(const FoodsCompanion(isFavorite: drift.Value(false)));
+      await (db.update(db.foods)).write(FoodsCompanion(isFavorite: drift.Value(false)));
 
       // 4. Delete user profile
       await ref.read(profileProvider.notifier).clearProfile();

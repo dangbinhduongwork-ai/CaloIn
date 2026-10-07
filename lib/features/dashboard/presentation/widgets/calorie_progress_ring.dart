@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/utils/formatters.dart';
 
 class CalorieProgressRing extends StatelessWidget {
   const CalorieProgressRing({
@@ -90,7 +89,7 @@ class CalorieProgressRing extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'kcal / ${targetKcal} kcal',
+                    'kcal / $targetKcal kcal',
                     style: TextStyle(
                       fontSize: 13,
                       color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,

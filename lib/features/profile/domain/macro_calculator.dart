@@ -1,4 +1,4 @@
-import '../../core/constants/app_constants.dart';
+import '../../../core/constants/app_constants.dart';
 import 'macro_split.dart';
 
 class MacroGramsResult {

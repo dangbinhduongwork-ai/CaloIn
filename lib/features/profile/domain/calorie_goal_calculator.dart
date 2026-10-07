@@ -1,4 +1,4 @@
-import '../../core/constants/app_constants.dart';
+import '../../../core/constants/app_constants.dart';
 import 'bmr_calculator.dart';
 import 'profile_enums.dart';
 import 'tdee_calculator.dart';

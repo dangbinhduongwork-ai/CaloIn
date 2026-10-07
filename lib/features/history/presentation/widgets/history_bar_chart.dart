@@ -250,7 +250,7 @@ class HistoryBarChart extends ConsumerWidget {
                               );
                             } else {
                               // Week: T2, T3, T4, T5, T6, T7, CN
-                              final weekdayLabel = _getWeekdayShortLabel(item.date, l10n.locale.languageCode);
+                              final weekdayLabel = _getWeekdayShortLabel(item.date, l10n.localeName);
                               return Padding(
                                 padding: const EdgeInsets.only(top: 6.0),
                                 child: Text(
@@ -299,7 +299,7 @@ class HistoryBarChart extends ConsumerWidget {
                         getTooltipItem: (group, groupIndex, rod, rodIndex) {
                           if (groupIndex < 0 || groupIndex >= report.days.length) return null;
                           final item = report.days[groupIndex];
-                          final dateStr = DateFormat('dd/MM', l10n.locale.languageCode).format(item.date);
+                          final dateStr = DateFormat('dd/MM', l10n.localeName).format(item.date);
 
                           if (!item.hasLog) {
                             return BarTooltipItem(

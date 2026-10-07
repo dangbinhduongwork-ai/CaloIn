@@ -151,7 +151,7 @@ void main() {
           'status': 1,
           'product': {
             'product_name': 'Nước lọc tinh khiết không nhãn dinh dưỡng',
-            'nutriments': {},
+            'nutriments': <String, dynamic>{},
           },
         };
 

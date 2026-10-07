@@ -83,7 +83,7 @@ class HistoryPeriodSelector extends ConsumerWidget {
               ),
               Expanded(
                 child: Text(
-                  _formatPeriodLabel(mode, range, refDate, l10n.locale.languageCode),
+                  _formatPeriodLabel(mode, range, refDate, l10n.localeName),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 15,

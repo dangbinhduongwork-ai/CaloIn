@@ -300,10 +300,10 @@ class _BarcodeScannerScreenState extends ConsumerState<BarcodeScannerScreen> {
       appBar: AppBar(
         title: Text(l10n.scanBarcode, style: const TextStyle(fontWeight: FontWeight.bold)),
         actions: [
-          ValueListenableBuilder<TorchState>(
-            valueListenable: _controller.torchState,
+          ValueListenableBuilder<MobileScannerState>(
+            valueListenable: _controller,
             builder: (context, state, child) {
-              final isTorchOn = state == TorchState.on;
+              final isTorchOn = state.torchState == TorchState.on;
               return IconButton(
                 icon: Icon(isTorchOn ? Icons.flash_on : Icons.flash_off),
                 tooltip: 'Bật/tắt đèn',

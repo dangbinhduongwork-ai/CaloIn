@@ -38,6 +38,11 @@ class Food {
         fat: fatPer100g,
       );
 
+  String displayName([String locale = 'vi']) =>
+      locale == 'en' ? (nameEn.isNotEmpty ? nameEn : nameVi) : nameVi;
+
+  String get servingUnitLabel => servingLabelKey;
+
   Food copyWith({
     String? id,
     String? nameVi,

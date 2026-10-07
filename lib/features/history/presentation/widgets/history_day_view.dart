@@ -79,7 +79,7 @@ class HistoryDayView extends ConsumerWidget {
     final dinnerKcal = summary.meals[MealType.dinner]?.kcal ?? 0.0;
     final snackKcal = summary.meals[MealType.snack]?.kcal ?? 0.0;
 
-    final mealValues = [breakfastKcal, lunchKcal, dinnerKcal, snackKcal];
+    final List<double> mealValues = [breakfastKcal, lunchKcal, dinnerKcal, snackKcal];
     final maxMealKcal = mealValues.reduce(max);
     final maxY = max(1000.0, maxMealKcal * 1.25);
 

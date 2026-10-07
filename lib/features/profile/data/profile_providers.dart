@@ -86,6 +86,18 @@ class ProfileNotifier extends AsyncNotifier<UserProfile?> {
     await saveProfile(updated);
   }
 
+  Future<void> updateGoals({
+    required int dailyGoalKcal,
+    required bool isGoalManual,
+    required MacroSplit macroSplit,
+  }) async {
+    await updateProfile(
+      dailyGoalKcal: dailyGoalKcal,
+      isGoalManual: isGoalManual,
+      macroSplit: macroSplit,
+    );
+  }
+
   Future<void> resetToSuggestedGoal() async {
     final current = state.value;
     if (current == null) return;

@@ -13,7 +13,6 @@ import 'package:caloin/features/diary/data/food_log_repository_impl.dart';
 import 'package:caloin/features/diary/domain/food_log_entry.dart';
 import 'package:caloin/features/diary/domain/meal_type.dart';
 import 'package:caloin/features/foods/domain/nutrition.dart';
-import 'package:caloin/features/history/data/history_providers.dart';
 import 'package:caloin/features/history/presentation/history_screen.dart';
 import 'package:caloin/features/profile/data/profile_providers.dart';
 import 'package:caloin/features/profile/domain/profile_enums.dart';

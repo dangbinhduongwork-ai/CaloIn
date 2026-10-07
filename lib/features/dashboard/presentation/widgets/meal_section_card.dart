@@ -5,10 +5,10 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../foods/data/food_repository_provider.dart';
-import '../../data/diary_providers.dart';
-import '../../domain/food_log_entry.dart';
-import '../../domain/meal_type.dart';
-import '../../presentation/widgets/food_portion_bottom_sheet.dart';
+import '../../../diary/data/diary_providers.dart';
+import '../../../diary/domain/food_log_entry.dart';
+import '../../../diary/domain/meal_type.dart';
+import '../../../diary/presentation/widgets/food_portion_bottom_sheet.dart';
 
 class MealSectionCard extends ConsumerWidget {
   const MealSectionCard({

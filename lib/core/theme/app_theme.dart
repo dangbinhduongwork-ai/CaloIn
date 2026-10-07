@@ -27,7 +27,7 @@ class AppTheme {
         centerTitle: false,
         scrolledUnderElevation: 0.5,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surfaceLight,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -127,7 +127,7 @@ class AppTheme {
         centerTitle: false,
         scrolledUnderElevation: 0.5,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surfaceDark,
         elevation: 0,
         shape: RoundedRectangleBorder(

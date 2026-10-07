@@ -1,4 +1,4 @@
-import '../foods/domain/nutrition.dart';
+import '../../foods/domain/nutrition.dart';
 import 'meal_type.dart';
 
 class FoodLogEntry {

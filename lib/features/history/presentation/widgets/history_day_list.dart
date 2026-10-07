@@ -60,7 +60,7 @@ class HistoryDayList extends ConsumerWidget {
             ),
             itemBuilder: (context, index) {
               final dayItem = reversedDays[index];
-              final dateStr = DateFormat('EEEE, dd/MM', l10n.locale.languageCode).format(dayItem.date);
+              final dateStr = DateFormat('EEEE, dd/MM', l10n.localeName).format(dayItem.date);
 
               return ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),

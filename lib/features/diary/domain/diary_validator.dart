@@ -1,4 +1,4 @@
-import '../../core/utils/validation_result.dart';
+import '../../../core/utils/validation_result.dart';
 
 class DiaryValidator {
   DiaryValidator._();

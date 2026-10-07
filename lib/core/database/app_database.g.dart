@@ -348,7 +348,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntry> {
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsURL('PRIMARY KEY AUTOINCREMENT'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
 
   static const VerificationMeta _seedKeyMeta = const VerificationMeta('seedKey');
   @override
@@ -356,7 +356,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntry> {
       'seed_key', aliasedName, true,
       type: DriftSqlType.string,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsURL('UNIQUE'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
 
   static const VerificationMeta _nameViMeta = const VerificationMeta('nameVi');
   @override
@@ -434,7 +434,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntry> {
       'is_custom', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsURL('CHECK (is_custom IN (0, 1))'),
+      defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK (is_custom IN (0, 1))'),
       defaultValue: const Constant(false));
 
   static const VerificationMeta _isFavoriteMeta = const VerificationMeta('isFavorite');
@@ -443,7 +443,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntry> {
       'is_favorite', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsURL('CHECK (is_favorite IN (0, 1))'),
+      defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK (is_favorite IN (0, 1))'),
       defaultValue: const Constant(false));
 
   static const VerificationMeta _dataQualityMeta = const VerificationMeta('dataQuality');
@@ -893,7 +893,7 @@ class $FoodLogsTable extends FoodLogs with TableInfo<$FoodLogsTable, FoodLogEntr
       'is_quick_add', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsURL('CHECK (is_quick_add IN (0, 1))'),
+      defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK (is_quick_add IN (0, 1))'),
       defaultValue: const Constant(false));
 
   static const VerificationMeta _loggedAtMeta = const VerificationMeta('loggedAt');

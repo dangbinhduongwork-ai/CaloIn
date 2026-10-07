@@ -1,4 +1,4 @@
-import '../foods/domain/nutrition.dart';
+import '../../foods/domain/nutrition.dart';
 import 'meal_type.dart';
 
 class DailyNutritionSummary {
@@ -14,6 +14,7 @@ class DailyNutritionSummary {
   final int targetKcal;
   final int remainingKcal;
 
+  Map<MealType, Nutrition> get meals => subtotalByMeal;
   bool get isExceeded => remainingKcal < 0;
   int get exceededKcal => remainingKcal < 0 ? -remainingKcal : 0;
   int get totalKcal => total.kcal.round();

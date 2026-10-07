@@ -6,10 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:caloin/core/router/app_router.dart';
 import 'package:caloin/core/theme/theme_provider.dart';
 import 'package:caloin/features/profile/data/onboarding_draft_provider.dart';
-import 'package:caloin/features/profile/data/profile_providers.dart';
 import 'package:caloin/features/profile/presentation/onboarding_screen.dart';
 import 'package:caloin/features/profile/presentation/onboarding_summary_screen.dart';
-import 'package:caloin/features/profile/presentation/widgets/macro_ratio_selector.dart';
 import 'package:caloin/l10n/app_localizations.dart';
 
 void main() {

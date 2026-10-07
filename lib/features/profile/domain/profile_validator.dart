@@ -1,5 +1,5 @@
-import '../../core/constants/app_constants.dart';
-import '../../core/utils/validation_result.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../core/utils/validation_result.dart';
 import 'macro_split.dart';
 
 class ProfileValidator {

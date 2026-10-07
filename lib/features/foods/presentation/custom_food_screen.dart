@@ -8,7 +8,7 @@ import '../data/food_repository_provider.dart';
 import '../domain/barcode_product.dart';
 import '../domain/food.dart';
 import '../domain/food_validator.dart';
-import '../domain/macro_calculator.dart';
+import '../../profile/domain/macro_calculator.dart';
 
 class CustomFoodScreen extends ConsumerStatefulWidget {
   const CustomFoodScreen({this.initialBarcodeProduct, super.key});

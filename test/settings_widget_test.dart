@@ -7,13 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:caloin/core/database/app_database.dart';
 import 'package:caloin/core/database/database_provider.dart';
-import 'package:caloin/core/localization/locale_provider.dart';
 import 'package:caloin/core/theme/theme_provider.dart';
 import 'package:caloin/features/profile/data/profile_providers.dart';
 import 'package:caloin/features/profile/domain/profile_enums.dart';
 import 'package:caloin/features/profile/domain/user_profile.dart';
-import 'package:caloin/features/settings/data/settings_provider.dart';
-import 'package:caloin/features/settings/domain/settings_enums.dart';
 import 'package:caloin/features/settings/presentation/settings_screen.dart';
 import 'package:caloin/l10n/app_localizations.dart';
 

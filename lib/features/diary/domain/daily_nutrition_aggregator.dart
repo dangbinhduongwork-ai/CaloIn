@@ -1,4 +1,4 @@
-import '../foods/domain/nutrition.dart';
+import '../../foods/domain/nutrition.dart';
 import 'daily_nutrition_summary.dart';
 import 'food_log_entry.dart';
 import 'meal_type.dart';
@@ -21,8 +21,8 @@ class DailyNutritionAggregator {
       subtotals[entry.mealType] = (subtotals[entry.mealType] ?? Nutrition.zero) + entry.nutrition;
     }
 
-    final totalRoundedKcal = total.kcal.round();
-    final remainingKcal = targetKcal - totalRoundedKcal;
+    final int totalRoundedKcal = total.kcal.round();
+    final int remainingKcal = targetKcal - totalRoundedKcal;
 
     return DailyNutritionSummary(
       total: total,
