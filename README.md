@@ -53,6 +53,17 @@ dart run build_runner build --delete-conflicting-outputs
 
 ---
 
+## Giả định Khung giờ Phân bổ Bữa ăn Tự động
+
+Khi người dùng mở màn hình ghi món ăn, hệ thống sẽ tự động gợi ý bữa ăn mặc định dựa trên khung giờ sinh hoạt tiêu chuẩn:
+- **05:00 – 10:00**: Bữa sáng (`MealType.breakfast`)
+- **10:00 – 14:00**: Bữa trưa (`MealType.lunch`)
+- **14:00 – 17:00**: Bữa phụ chiều (`MealType.snack`)
+- **17:00 – 22:00**: Bữa tối (`MealType.dinner`)
+- **Ngoài các khung giờ trên**: Bữa phụ đêm / sáng sớm (`MealType.snack`)
+
+---
+
 ## Dữ liệu hạt giống & Kiểm tra Atwater
 
 - Dữ liệu 89 món ăn phổ biến được lưu tại `assets/data/foods_seed.json`.

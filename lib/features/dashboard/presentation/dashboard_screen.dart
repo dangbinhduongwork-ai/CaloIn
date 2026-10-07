@@ -1,19 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/utils/formatters.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../diary/data/diary_providers.dart';
+import '../../diary/domain/food_log_entry.dart';
+import '../../diary/domain/meal_type.dart';
 import '../../profile/data/profile_providers.dart';
+import 'widgets/calorie_progress_ring.dart';
+import 'widgets/macro_bars_card.dart';
+import 'widgets/meal_section_card.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
+  String _formatDateTitle(DateTime date, BuildContext context) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final compareDate = DateTime(date.year, date.month, date.day);
+
+    final dayStr = date.day.toString().padLeft(2, '0');
+    final monthStr = date.month.toString().padLeft(2, '0');
+
+    if (compareDate == today) {
+      return 'Hôm nay, $dayStr/$monthStr';
+    } else if (compareDate == yesterday) {
+      return 'Hôm qua, $dayStr/$monthStr';
+    } else {
+      return '$dayStr/$monthStr/${date.year}';
+    }
+  }
+
+  void _previousDay(WidgetRef ref) {
+    final current = ref.read(effectiveDateProvider);
+    final prev = current.subtract(const Duration(days: 1));
+    ref.read(selectedDateProvider.notifier).state = prev;
+  }
+
+  void _nextDay(WidgetRef ref) {
+    final current = ref.read(effectiveDateProvider);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    if (current.isBefore(today)) {
+      final next = current.add(const Duration(days: 1));
+      if (next == today) {
+        // Reset to null so it automatically tracks today across midnight
+        ref.read(selectedDateProvider.notifier).state = null;
+      } else {
+        ref.read(selectedDateProvider.notifier).state = next;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final profileAsync = ref.watch(profileProvider);
+    final currentDate = ref.watch(effectiveDateProvider);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final isToday = currentDate == today;
+
+    final summary = ref.watch(daySummaryProvider(currentDate));
     final target = ref.watch(nutritionTargetProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final logsAsync = ref.watch(foodLogsForDayStreamProvider(currentDate));
+
+    final entries = logsAsync.value ?? <FoodLogEntry>[];
+    final breakfastEntries = entries.where((e) => e.mealType == MealType.breakfast).toList();
+    final lunchEntries = entries.where((e) => e.mealType == MealType.lunch).toList();
+    final dinnerEntries = entries.where((e) => e.mealType == MealType.dinner).toList();
+    final snackEntries = entries.where((e) => e.mealType == MealType.snack).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -22,135 +79,99 @@ class DashboardScreen extends ConsumerWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: profileAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-        error: (err, stack) => Center(child: Text('Lỗi: $err')),
-        data: (profile) {
-          if (profile == null) {
-            return Center(child: Text(l10n.getStarted));
-          }
-
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Daily Target Card
-                Card(
-                  color: isDark ? AppColors.surfaceVariantDark : AppColors.primaryContainer.withOpacity(0.5),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Text(
-                          l10n.targetCalories(profile.dailyGoalKcal),
-                          style: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryDark,
-                          ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 88),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Date Navigation Bar
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.chevron_left_rounded),
+                        tooltip: 'Ngày trước',
+                        onPressed: () => _previousDay(ref),
+                      ),
+                      Text(
+                        _formatDateTitle(currentDate, context),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const SizedBox(height: 6),
-                        Text(
-                          profile.isGoalManual ? 'Mục tiêu tự chỉnh' : 'Mục tiêu tự động (Mifflin-St Jeor)',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-
-                        // Macro targets
-                        if (target != null)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              _buildMacroTargetStat(
-                                'Đạm',
-                                AppFormatters.formatMacroWithUnit(target.proteinGrams),
-                                AppColors.protein,
-                              ),
-                              _buildMacroTargetStat(
-                                'Carb',
-                                AppFormatters.formatMacroWithUnit(target.carbGrams),
-                                AppColors.carb,
-                              ),
-                              _buildMacroTargetStat(
-                                'Béo',
-                                AppFormatters.formatMacroWithUnit(target.fatGrams),
-                                AppColors.fat,
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.chevron_right_rounded),
+                        tooltip: 'Ngày sau',
+                        onPressed: isToday ? null : () => _nextDay(ref),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 16),
+              ),
+              const SizedBox(height: 16),
 
-                // Profile Summary card
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Thông tin thể trạng',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 12),
-                        _buildRow('Giới tính', profile.gender.isMale ? l10n.male : l10n.female),
-                        const Divider(height: 16),
-                        _buildRow('Tuổi', '${profile.age} tuổi'),
-                        const Divider(height: 16),
-                        _buildRow('Chiều cao', '${profile.heightCm.round()} cm'),
-                        const Divider(height: 16),
-                        _buildRow('Cân nặng', '${profile.weightKg.toStringAsFixed(1)} kg'),
-                        const Divider(height: 16),
-                        _buildRow(
-                          'Mục tiêu',
-                          switch (profile.goal) {
-                            var g when g.name == 'lose' => l10n.loseWeight,
-                            var g when g.name == 'gain' => l10n.gainWeight,
-                            _ => l10n.maintainWeight,
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
+              // Animated Calorie Progress Ring
+              CalorieProgressRing(
+                consumedKcal: summary.totalKcal,
+                targetKcal: summary.targetKcal,
+                remainingKcal: summary.remainingKcal,
+                isExceeded: summary.isExceeded,
+              ),
+              const SizedBox(height: 16),
+
+              // Macro Nutrient Progress Bars
+              MacroBarsCard(
+                consumedProtein: summary.total.protein,
+                targetProtein: target?.proteinGrams ?? 0.0,
+                consumedCarb: summary.total.carb,
+                targetCarb: target?.carbGrams ?? 0.0,
+                consumedFat: summary.total.fat,
+                targetFat: target?.fatGrams ?? 0.0,
+              ),
+              const SizedBox(height: 20),
+
+              // 4 Meal Sections
+              MealSectionCard(
+                mealType: MealType.breakfast,
+                entries: breakfastEntries,
+                targetDate: currentDate,
+              ),
+              const SizedBox(height: 12),
+              MealSectionCard(
+                mealType: MealType.lunch,
+                entries: lunchEntries,
+                targetDate: currentDate,
+              ),
+              const SizedBox(height: 12),
+              MealSectionCard(
+                mealType: MealType.dinner,
+                entries: dinnerEntries,
+                targetDate: currentDate,
+              ),
+              const SizedBox(height: 12),
+              MealSectionCard(
+                mealType: MealType.snack,
+                entries: snackEntries,
+                targetDate: currentDate,
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add_rounded),
+        label: const Text('Ghi món'),
+        onPressed: () {
+          context.push('/diary/add');
         },
       ),
-    );
-  }
-
-  Widget _buildMacroTargetStat(String title, String grams, Color color) {
-    return Column(
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: color),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          grams,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(label, style: const TextStyle(fontSize: 14)),
-        Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-      ],
     );
   }
 }

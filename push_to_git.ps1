@@ -4,7 +4,7 @@ Write-Host "===========================================" -ForegroundColor Cyan
 
 git init
 git add .
-git commit -m "feat: complete phase 1, 2, 3, and 4 for CaloIn"
+git commit -m "feat: complete phase 1, 2, 3, 4, and 5 for CaloIn"
 git branch -M main
 try {
     git remote remove origin 2>$null
