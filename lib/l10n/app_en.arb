@@ -164,5 +164,18 @@
   "servingUnitPiece": "Piece",
   "servingUnitCup": "Cup",
   "servingUnitPortion": "Portion",
-  "servingUnitCan": "Can / Box"
+  "servingUnitCan": "Can / Box",
+  "calories": "Calories",
+  "macros": "Macros",
+  "unlogged": "Not logged",
+  "loggedDaysCount": "Days logged",
+  "highestDayLabel": "Highest day",
+  "lowestDayLabel": "Lowest day",
+  "noHistoryData": "No data logged in this period",
+  "generateSampleData": "Generate 60-day sample data (Debug)",
+  "sampleDataGenerated": "Successfully generated 60 days of sample data",
+  "macroRatioTitle": "Macro Ratio",
+  "historySummaryTitle": "Nutrition Summary",
+  "mealsBreakdown": "Meals Breakdown",
+  "chartSemantics": "Calories and nutrition chart"
 }

@@ -11,7 +11,7 @@ CaloIn là ứng dụng Flutter theo dõi calo nạp vào (Calories In) và các
 3. **`build_runner: ^2.4.9`**: Công cụ chạy build step sinh code chuẩn của hệ sinh thái Dart/Flutter.
 4. **`sqlite3_flutter_libs: ^0.5.24`**: Cung cấp binary SQLite C native mới nhất được đóng gói sẵn cho Android, iOS, Windows, macOS, Linux, đảm bảo hiệu năng và tính tương thích nền tảng cao nhất.
 5. **`flutter_riverpod: ^2.5.1`**: Quản lý trạng thái và Dependency Injection hiện đại, không phụ thuộc BuildContext.
-6. **`go_router: ^14.2.0`**: Điều hướng phân cấp với `StatefulShellRoute` cho thanh điều hướng 4 tab.
+6. **`go_router: ^14.2.0`**: Điều hướng phân cấp với `StatefulShellRoute` cho thanh điều hướng 3 tab chính: Hôm nay, Lịch sử, Cài đặt (giữ trạng thái từng tab).
 7. **`fl_chart: ^0.68.0`**: Biểu đồ phân tích calo và xu hướng theo thời gian.
 8. **`shared_preferences: ^2.2.3`**: Lưu trữ cục bộ các cài đặt nhẹ (hồ sơ, theme, ngôn ngữ, phiên bản seed).
 
@@ -71,3 +71,19 @@ Khi người dùng mở màn hình ghi món ăn, hệ thống sẽ tự động 
   $$\text{kcal} \approx \text{protein} \times 4 + \text{carb} \times 4 + \text{fat} \times 9$$
 - Sai số tối đa cho phép là $20\%$ đối với các món ăn thông thường (các món đặc thù như rượu/cà phê đen/trà có cờ `atwaterCheckExempt: true`).
 - Chi tiết các món cần rà soát thêm có trong `docs/FOOD_DATA_TODO.md`.
+
+---
+
+## Giả định Lịch sử & Mục tiêu Dinh dưỡng (History & Goals)
+
+1. **Mục tiêu calo cho các ngày quá khứ**:
+   - Các ngày đã qua trong quá khứ được so sánh trực tiếp với mục tiêu calo và macro hiện tại trong hồ sơ của người dùng (không lưu trữ lịch sử thay đổi mục tiêu theo từng ngày).
+2. **Tính toán trung bình không bị kéo tụt bởi ngày thiếu dữ liệu**:
+   - Những ngày không ghi chép **KHÔNG** bị coi là ngày ăn 0 kcal. Các chỉ số trung bình (kcal, protein, carb, fat) chỉ tính trên số ngày thực tế có ghi chép ($$\text{Trung bình} = \frac{\sum \text{Dinh dưỡng ngày có ghi}}{\text{Số ngày có ghi}}$$).
+3. **Quy ước lịch tuần**:
+   - Tuần bắt đầu từ thứ Hai (Monday) và kết thúc vào Chủ Nhật (Sunday) theo chuẩn ISO và văn hóa Việt Nam.
+4. **Không phán xét tiêu cực (Non-judgmental UX)**:
+   - Biểu đồ và thẻ thống kê giữ màu trung tính (`#0D9488` / Emerald Mint Green). Không tô đỏ cảnh báo hay phân loại "ngày tốt / ngày xấu", không đếm số ngày vượt/thiếu mục tiêu.
+5. **Dữ liệu mẫu 60 ngày (Debug Mode)**:
+   - Nút tạo 60 ngày dữ liệu mẫu chỉ kích hoạt trong môi trường `kDebugMode` và hoàn toàn được giấu/loại bỏ trong bản build Release. Dữ liệu mẫu cố tình để trống ~6 ngày để kiểm chứng tính năng xử lý ngày chưa ghi.
+

@@ -33,11 +33,6 @@ class ScaffoldWithNavBar extends StatelessWidget {
             label: l10n.navDashboard,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.restaurant_menu_outlined),
-            selectedIcon: const Icon(Icons.restaurant_menu_rounded),
-            label: l10n.navFoods,
-          ),
-          NavigationDestination(
             icon: const Icon(Icons.bar_chart_outlined),
             selectedIcon: const Icon(Icons.bar_chart_rounded),
             label: l10n.navHistory,

@@ -134,6 +134,19 @@ abstract class AppLocalizations {
   String get servingUnitCup;
   String get servingUnitPortion;
   String get servingUnitCan;
+  String get calories;
+  String get macros;
+  String get unlogged;
+  String get loggedDaysCount;
+  String get highestDayLabel;
+  String get lowestDayLabel;
+  String get noHistoryData;
+  String get generateSampleData;
+  String get sampleDataGenerated;
+  String get macroRatioTitle;
+  String get historySummaryTitle;
+  String get mealsBreakdown;
+  String get chartSemantics;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -495,6 +508,45 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get servingUnitCan => 'Lon / Hộp';
+
+  @override
+  String get calories => 'Calo';
+
+  @override
+  String get macros => 'Macro';
+
+  @override
+  String get unlogged => 'Chưa ghi';
+
+  @override
+  String get loggedDaysCount => 'Số ngày có ghi chép';
+
+  @override
+  String get highestDayLabel => 'Ngày nhiều nhất';
+
+  @override
+  String get lowestDayLabel => 'Ngày ít nhất';
+
+  @override
+  String get noHistoryData => 'Không có dữ liệu trong khoảng thời gian này';
+
+  @override
+  String get generateSampleData => 'Tạo dữ liệu mẫu 60 ngày (Debug)';
+
+  @override
+  String get sampleDataGenerated => 'Đã tạo thành công dữ liệu mẫu 60 ngày';
+
+  @override
+  String get macroRatioTitle => 'Tỉ lệ Macro';
+
+  @override
+  String get historySummaryTitle => 'Tổng kết dinh dưỡng';
+
+  @override
+  String get mealsBreakdown => 'Phân bổ bữa ăn';
+
+  @override
+  String get chartSemantics => 'Biểu đồ calo và dinh dưỡng';
 }
 
 class AppLocalizationsEn extends AppLocalizations {
@@ -838,4 +890,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get servingUnitCan => 'Can / Box';
+
+  @override
+  String get calories => 'Calories';
+
+  @override
+  String get macros => 'Macros';
+
+  @override
+  String get unlogged => 'Not logged';
+
+  @override
+  String get loggedDaysCount => 'Days logged';
+
+  @override
+  String get highestDayLabel => 'Highest day';
+
+  @override
+  String get lowestDayLabel => 'Lowest day';
+
+  @override
+  String get noHistoryData => 'No data logged in this period';
+
+  @override
+  String get generateSampleData => 'Generate 60-day sample data (Debug)';
+
+  @override
+  String get sampleDataGenerated => 'Successfully generated 60 days of sample data';
+
+  @override
+  String get macroRatioTitle => 'Macro Ratio';
+
+  @override
+  String get historySummaryTitle => 'Nutrition Summary';
+
+  @override
+  String get mealsBreakdown => 'Meals Breakdown';
+
+  @override
+  String get chartSemantics => 'Calories and nutrition chart';
 }

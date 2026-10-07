@@ -15,7 +15,6 @@ import 'scaffold_with_nav_bar.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _dashboardNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'dashboard');
-final _foodsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'foods');
 final _historyNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'history');
 final _settingsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
 
@@ -59,15 +58,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _foodsNavigatorKey,
-            routes: [
-              GoRoute(
-                path: '/foods',
-                builder: (context, state) => const FoodLibraryScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
             navigatorKey: _historyNavigatorKey,
             routes: [
               GoRoute(
@@ -86,6 +76,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
         ],
+      ),
+      GoRoute(
+        path: '/foods',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const FoodLibraryScreen(),
       ),
       GoRoute(
         path: '/onboarding',

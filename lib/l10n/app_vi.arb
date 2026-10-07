@@ -164,5 +164,18 @@
   "servingUnitPiece": "Cái / Chiếc / Quả",
   "servingUnitCup": "Ly / Cốc",
   "servingUnitPortion": "Phần / Suất",
-  "servingUnitCan": "Lon / Hộp"
+  "servingUnitCan": "Lon / Hộp",
+  "calories": "Calo",
+  "macros": "Macro",
+  "unlogged": "Chưa ghi",
+  "loggedDaysCount": "Số ngày có ghi chép",
+  "highestDayLabel": "Ngày nhiều nhất",
+  "lowestDayLabel": "Ngày ít nhất",
+  "noHistoryData": "Không có dữ liệu trong khoảng thời gian này",
+  "generateSampleData": "Tạo dữ liệu mẫu 60 ngày (Debug)",
+  "sampleDataGenerated": "Đã tạo thành công dữ liệu mẫu 60 ngày",
+  "macroRatioTitle": "Tỉ lệ Macro",
+  "historySummaryTitle": "Tổng kết dinh dưỡng",
+  "mealsBreakdown": "Phân bổ bữa ăn",
+  "chartSemantics": "Biểu đồ calo và dinh dưỡng"
 }

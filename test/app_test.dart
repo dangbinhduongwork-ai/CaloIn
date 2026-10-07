@@ -41,7 +41,6 @@ void main() {
 
     expect(find.text('CaloIn'), findsOneWidget);
     expect(find.text('Hôm nay'), findsWidgets);
-    expect(find.text('Món ăn'), findsOneWidget);
     expect(find.text('Lịch sử'), findsOneWidget);
     expect(find.text('Cài đặt'), findsOneWidget);
     expect(find.textContaining('2560 kcal'), findsOneWidget);
