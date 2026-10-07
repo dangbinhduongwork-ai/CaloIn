@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/database/database_provider.dart';
 import '../../../core/theme/theme_provider.dart';
+import '../domain/barcode_lookup_service.dart';
 import '../domain/food.dart';
 import '../domain/food_repository.dart';
 import 'food_repository_impl.dart';
+import 'open_food_facts_lookup_service_impl.dart';
 
 final foodRepositoryProvider = Provider<FoodRepository>((ref) {
   final db = ref.watch(appDatabaseProvider);
@@ -22,6 +24,10 @@ final favoriteFoodsStreamProvider = StreamProvider<List<Food>>((ref) {
 final customFoodsStreamProvider = StreamProvider<List<Food>>((ref) {
   final repo = ref.watch(foodRepositoryProvider);
   return repo.watchCustomFoods();
+});
+
+final barcodeLookupServiceProvider = Provider<BarcodeLookupService>((ref) {
+  return OpenFoodFactsLookupServiceImpl();
 });
 
 Future<void> initializeFoodsSeed(WidgetRef ref) async {

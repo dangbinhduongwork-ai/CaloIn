@@ -5,7 +5,7 @@ echo ===========================================
 
 git init
 git add .
-git commit -m "feat: complete entire CaloIn application (Phases 1-7, Settings, Custom foods, Integration tests, Accessibility, Docs)"
+git commit -m "feat: add Open Food Facts barcode scanning with offline fallback (Phase 8)"
 git branch -M main
 git remote remove origin 2>nul
 git remote add origin https://github.com/dangbinhduongwork-ai/CaloIn.git

@@ -24,6 +24,13 @@ class FoodLibraryScreen extends ConsumerWidget {
             l10n.navFoods,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.qr_code_scanner_rounded),
+              tooltip: l10n.scanBarcode,
+              onPressed: () => context.push('/foods/scan'),
+            ),
+          ],
           bottom: TabBar(
             indicatorColor: AppColors.primary,
             labelColor: AppColors.primary,

@@ -446,6 +446,11 @@ class SettingsScreen extends ConsumerWidget {
                     l10n.dataSourceInfo,
                     style: TextStyle(fontSize: 11, color: isDark ? Colors.white60 : Colors.black54),
                   ),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.openFoodFactsAttribution,
+                    style: TextStyle(fontSize: 11, color: isDark ? Colors.white60 : Colors.black54),
+                  ),
                 ],
               ),
             ),

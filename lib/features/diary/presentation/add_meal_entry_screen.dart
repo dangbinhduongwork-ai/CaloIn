@@ -73,6 +73,16 @@ class _AddMealEntryScreenState extends ConsumerState<AddMealEntryScreen> with Si
       appBar: AppBar(
         title: Text('Ghi ${_getMealName(context, _selectedMeal)}'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.qr_code_scanner_rounded),
+            tooltip: l10n.scanBarcode,
+            onPressed: () async {
+              final result = await context.push<Food>('/foods/scan');
+              if (result != null && mounted) {
+                _onFoodTapped(result);
+              }
+            },
+          ),
           TextButton.icon(
             icon: const Icon(Icons.flash_on_rounded, size: 18),
             label: Text(l10n.quickAddCalories),

@@ -5,12 +5,15 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/food_repository_provider.dart';
+import '../domain/barcode_product.dart';
 import '../domain/food.dart';
 import '../domain/food_validator.dart';
 import '../domain/macro_calculator.dart';
 
 class CustomFoodScreen extends ConsumerStatefulWidget {
-  const CustomFoodScreen({super.key});
+  const CustomFoodScreen({this.initialBarcodeProduct, super.key});
+
+  final BarcodeProduct? initialBarcodeProduct;
 
   @override
   ConsumerState<CustomFoodScreen> createState() => _CustomFoodScreenState();
@@ -30,6 +33,23 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
   String _selectedCategory = 'other';
   String _selectedServingLabel = 'portion';
   String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    final p = widget.initialBarcodeProduct;
+    if (p != null) {
+      _nameViController.text = p.displayName;
+      _nameEnController.text = p.displayName;
+      _kcalController.text = p.kcalPer100g > 0 ? p.kcalPer100g.toString() : '';
+      _proteinController.text = p.proteinPer100g > 0 ? p.proteinPer100g.toString() : '';
+      _carbController.text = p.carbPer100g > 0 ? p.carbPer100g.toString() : '';
+      _fatController.text = p.fatPer100g > 0 ? p.fatPer100g.toString() : '';
+      _servingGramsController.text =
+          p.defaultServingGrams > 0 ? p.defaultServingGrams.round().toString() : '100';
+      _selectedServingLabel = p.servingLabel;
+    }
+  }
 
   @override
   void dispose() {
@@ -96,18 +116,18 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
       servingLabelKey: _selectedServingLabel,
       category: _selectedCategory,
       isCustom: true,
-      dataQuality: 'custom',
+      dataQuality: widget.initialBarcodeProduct != null ? 'community' : 'custom',
     );
 
     final repo = ref.read(foodRepositoryProvider);
-    await repo.addCustomFood(newFood);
+    final savedFood = await repo.addCustomFood(newFood);
 
     if (mounted) {
       final l10n = AppLocalizations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l10n.foodAddedSuccess)),
       );
-      context.pop();
+      context.pop(savedFood);
     }
   }
 

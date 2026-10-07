@@ -47,4 +47,5 @@ class AppConstants {
   static const String prefThemeMode = 'theme_mode';
   static const String prefLanguage = 'app_language';
   static const String prefUnitSystem = 'unit_system';
+  static const String prefHasConsentedBarcodeNetwork = 'has_consented_barcode_network';
 }

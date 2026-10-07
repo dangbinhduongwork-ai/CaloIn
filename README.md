@@ -98,6 +98,8 @@ lib/
 5. **`fl_chart: ^0.68.0`**: Biểu đồ cột phân tích calo và thanh xếp chồng macro (Protein/Carb/Fat).
 6. **`shared_preferences: ^2.2.3`**: Lưu trữ cục bộ hồ sơ cá nhân, cài đặt đơn vị, theme và locale.
 7. **`intl: ^0.19.0`**: Định dạng ngày tháng, số liệu theo bản địa hóa.
+8. **`mobile_scanner: ^5.2.3`**: Quét mã vạch sản phẩm đóng gói qua máy ảnh (EAN-13, UPC, Code 128,...).
+9. **`http: ^1.2.1`**: Tra cứu dữ liệu dinh dưỡng sản phẩm từ Open Food Facts qua kết nối mạng.
 
 ---
 
@@ -163,8 +165,20 @@ Khi cần bổ sung hoặc cập nhật danh sách món ăn hạt giống:
 
 ---
 
+## Tra Cứu Mã Vạch & Open Food Facts (ODbL)
+
+- **Quét mã vạch**: Hỗ trợ quét mã vạch sản phẩm đóng gói (EAN-13, EAN-8, UPC-A, UPC-E, Code 128...) bằng camera qua thư viện `mobile_scanner`.
+- **Nguồn dữ liệu mở Open Food Facts**:
+  - Tra cứu trực tuyến thông tin dinh dưỡng từ Open Food Facts API v2 (`https://world.openfoodfacts.org/api/v2/product/{barcode}.json`).
+  - **Quy chuẩn API**: Tuân thủ yêu cầu bắt buộc của Open Food Facts với custom `User-Agent`: `CaloIn - Flutter - Version 1.0.0 - https://github.com/dangbinhduongwork-ai/CaloIn`.
+  - **Bảo vệ quyền riêng tư**: Hộp thoại hỏi ý kiến (Consent Dialog) hiển thị trước lần quét đầu tiên để người dùng xác nhận việc gửi mã vạch qua kết nối Internet.
+  - **Quy trình lưu trữ**: Sản phẩm tìm thấy được mở trong màn hình chỉnh sửa món tùy chỉnh để người dùng xem lại, hiệu chỉnh số liệu khẩu phần thực tế, sau đó lưu vào SQLite cục bộ (`isCustom: true`, `dataQuality: 'community'`). Sau khi lưu, món ăn hoàn toàn có thể sử dụng và tìm kiếm offline.
+  - **Giấy phép ODbL**: Dữ liệu dinh dưỡng sản phẩm từ Open Food Facts được cấp phép theo [Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/).
+
+---
+
 ## Giới Hạn Đã Biết (Known Limitations)
 
 1. **Phạm vi Calo**: Ứng dụng chỉ theo dõi lượng calo **nạp vào** (Calories In) và các dưỡng chất đa lượng; không theo dõi lượng calo tiêu hao khi luyện tập thể thao (tính năng thuộc ứng dụng CaloOut riêng).
-2. **Lưu trữ Cục bộ (Offline 100%)**: Dữ liệu lưu trong máy (SQLite & SharedPreferences), không có tài khoản và không đồng bộ đám mây (cloud sync) giữa nhiều thiết bị.
-3. **Chưa hỗ trợ quét mã vạch (Barcode Scanner)**: Người dùng nhập món qua tìm kiếm không dấu tốc độ cao, danh mục hoặc tạo món tùy chỉnh.
+2. **Lưu trữ Cục bộ (Offline-first)**: Toàn bộ dữ liệu nhật ký và món ăn lưu trên máy (SQLite & SharedPreferences), không có tài khoản và không đồng bộ đám mây (cloud sync) giữa nhiều thiết bị. Quét mã vạch là tính năng duy nhất cần kết nối Internet tạm thời để tra cứu thông tin ban đầu.
+

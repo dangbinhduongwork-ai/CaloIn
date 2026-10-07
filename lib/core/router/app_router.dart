@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/diary/presentation/add_meal_entry_screen.dart';
 import '../../features/diary/presentation/quick_add_screen.dart';
+import '../../features/foods/domain/barcode_product.dart';
+import '../../features/foods/presentation/barcode_scanner_screen.dart';
 import '../../features/foods/presentation/custom_food_screen.dart';
 import '../../features/foods/presentation/food_library_screen.dart';
 import '../../features/history/presentation/history_screen.dart';
@@ -84,6 +86,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const FoodLibraryScreen(),
       ),
       GoRoute(
+        path: '/foods/scan',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const BarcodeScannerScreen(),
+      ),
+      GoRoute(
         path: '/onboarding',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) {
@@ -120,7 +127,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/foods/custom',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const CustomFoodScreen(),
+        builder: (context, state) {
+          final initialBarcodeProduct = state.extra as BarcodeProduct?;
+          return CustomFoodScreen(initialBarcodeProduct: initialBarcodeProduct);
+        },
       ),
     ],
   );
