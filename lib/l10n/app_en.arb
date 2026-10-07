@@ -1,0 +1,168 @@
+{
+  "@@locale": "en",
+  "appName": "CaloIn",
+  "disclaimer": "Results are estimates only and do not replace professional medical or nutritional advice.",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "undo": "Undo",
+  "continueText": "Continue",
+  "done": "Done",
+  "copy": "Copy",
+  "search": "Search",
+  "add": "Add",
+  "close": "Close",
+  "confirm": "Confirm",
+  "warning": "Warning",
+  "under18Warning": "This app is intended for users 18 and older. Calorie calculation for under 18 is not supported. Please consult a doctor or guardian.",
+  "floorWarning": "Recommended calories adjusted to safe floor ({calories} kcal) to preserve minimum metabolic health.",
+  "@floorWarning": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "manualFloorWarning": "The custom calorie target ({calories} kcal) is below the safe floor ({floor} kcal/day). Extreme calorie restriction can cause nutritional deficiencies. Are you sure you want to proceed?",
+  "@manualFloorWarning": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      },
+      "floor": {
+        "type": "int"
+      }
+    }
+  },
+  "exceedCalories": "{calories} kcal over target",
+  "@exceedCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "remainingCalories": "{calories} kcal left",
+  "@remainingCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "targetCalories": "Target: {calories} kcal",
+  "@targetCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "consumedCalories": "Consumed: {calories} kcal",
+  "@consumedCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "navDashboard": "Today",
+  "navFoods": "Foods",
+  "navHistory": "History",
+  "navSettings": "Settings",
+  "breakfast": "Breakfast",
+  "lunch": "Lunch",
+  "dinner": "Dinner",
+  "snack": "Snack",
+  "protein": "Protein",
+  "carb": "Carbohydrates",
+  "fat": "Fat",
+  "proteinShort": "Protein",
+  "carbShort": "Carb",
+  "fatShort": "Fat",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "age": "Age",
+  "height": "Height",
+  "weight": "Weight",
+  "activityLevel": "Activity Level",
+  "sedentary": "Sedentary (desk job, little exercise)",
+  "lightActivity": "Light (light exercise 1-3 days/week)",
+  "moderateActivity": "Moderate (exercise 3-5 days/week)",
+  "veryActive": "Very Active (hard exercise 6-7 days/week)",
+  "extraActive": "Extra Active (athlete or physical labor)",
+  "goal": "Goal",
+  "maintainWeight": "Maintain weight",
+  "loseWeight": "Lose weight (-500 kcal/day)",
+  "gainWeight": "Gain weight (+300 kcal/day)",
+  "recentFoods": "Recent",
+  "favoriteFoods": "Favorites",
+  "allFoods": "All Foods",
+  "copyYesterdayMeal": "Copy this meal from yesterday",
+  "copyYesterdaySuccess": "Copied items from yesterday",
+  "noYesterdayItems": "No food logged for this meal yesterday",
+  "addCustomFood": "Add Custom Food",
+  "quickAddCalories": "Quick Add Calories",
+  "foodSearchPlaceholder": "Search foods (e.g. pho bo, salad)...",
+  "servingSize": "Serving Size",
+  "customFoodName": "Food Name",
+  "quickAddName": "Name / Description",
+  "kcalPer100g": "Calories (kcal / 100g)",
+  "defaultServing": "Default Serving (g)",
+  "servingUnit": "Serving Unit (bowl, plate, pc...)",
+  "foodAddedSuccess": "Food added to journal",
+  "foodDeleted": "Food deleted",
+  "editProfile": "Edit Profile",
+  "calorieTarget": "Calorie Target",
+  "macroRatio": "Macro Ratio",
+  "units": "Units",
+  "metricUnit": "Metric (kg, cm)",
+  "imperialUnit": "Imperial (lb, ft/in)",
+  "language": "Language",
+  "themeMode": "Theme",
+  "themeSystem": "System Default",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "deleteAllData": "Clear All Data",
+  "deleteAllDataConfirm": "This action will permanently wipe all journal entries, custom foods, and profile settings. It cannot be undone.",
+  "dataClearedSuccess": "All data has been cleared",
+  "bmrExplanation": "BMR (Basal Metabolic Rate): Calories burned at complete rest.",
+  "tdeeExplanation": "TDEE (Total Daily Energy Expenditure): BMR multiplied by your physical activity factor.",
+  "targetExplanation": "Target calories = TDEE adjusted for weight goal (rounded to nearest 10 kcal).",
+  "formulaSummaryTitle": "Estimated Energy Metrics",
+  "getStarted": "Get Started",
+  "emptyDiary": "No food entries logged for today yet",
+  "tapToAdd": "Tap the + button to log your first food",
+  "dayView": "Day",
+  "weekView": "Week",
+  "monthView": "Month",
+  "dailyAverage": "Daily Average",
+  "macroAverage": "Macro Average",
+  "categoryAll": "All",
+  "categoryCarb": "Carbs & Grains",
+  "categoryMeat": "Meat & Poultry",
+  "categoryFishSeafood": "Fish & Seafood",
+  "categoryEggDairy": "Eggs & Dairy",
+  "categoryVegetable": "Vegetables",
+  "categoryFruit": "Fruits",
+  "categoryDrink": "Beverages",
+  "categorySnack": "Snacks",
+  "categoryOther": "Other",
+  "noFoodsFound": "No matching foods found",
+  "estimatedFromMacros": "Estimated from macros: {kcal} kcal",
+  "@estimatedFromMacros": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "servingUnitBowl": "Bowl",
+  "servingUnitPlate": "Plate",
+  "servingUnitPiece": "Piece",
+  "servingUnitCup": "Cup",
+  "servingUnitPortion": "Portion",
+  "servingUnitCan": "Can / Box"
+}

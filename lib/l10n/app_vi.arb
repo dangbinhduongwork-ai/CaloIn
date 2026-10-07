@@ -1,0 +1,168 @@
+{
+  "@@locale": "vi",
+  "appName": "CaloIn",
+  "disclaimer": "Kết quả chỉ mang tính ước lượng, không thay thế tư vấn y tế hoặc dinh dưỡng.",
+  "save": "Lưu",
+  "cancel": "Hủy",
+  "delete": "Xóa",
+  "edit": "Chỉnh sửa",
+  "undo": "Hoàn tác",
+  "continueText": "Tiếp tục",
+  "done": "Xong",
+  "copy": "Sao chép",
+  "search": "Tìm kiếm",
+  "add": "Thêm",
+  "close": "Đóng",
+  "confirm": "Xác nhận",
+  "warning": "Cảnh báo",
+  "under18Warning": "Ứng dụng chỉ dành cho người từ 18 tuổi trở lên. Nhu cầu dinh dưỡng ở độ tuổi dưới 18 đang phát triển và cần được tư vấn bởi bác sĩ hoặc phụ huynh.",
+  "floorWarning": "Mức calo tính toán đã được nâng lên mức sàn an toàn ({calories} kcal) để đảm bảo năng lượng tối thiểu cho cơ thể.",
+  "@floorWarning": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "manualFloorWarning": "Mức calo bạn nhập ({calories} kcal) thấp hơn mức sàn an toàn ({floor} kcal/ngày). Cắt giảm calo quá thấp có thể gây suy nhược và ảnh hưởng sức khỏe. Bạn có chắc chắn muốn tiếp tục?",
+  "@manualFloorWarning": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      },
+      "floor": {
+        "type": "int"
+      }
+    }
+  },
+  "exceedCalories": "Đã nạp hơn {calories} kcal so với mục tiêu",
+  "@exceedCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "remainingCalories": "Còn lại {calories} kcal",
+  "@remainingCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "targetCalories": "Mục tiêu: {calories} kcal",
+  "@targetCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "consumedCalories": "Đã nạp: {calories} kcal",
+  "@consumedCalories": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
+  "navDashboard": "Hôm nay",
+  "navFoods": "Món ăn",
+  "navHistory": "Lịch sử",
+  "navSettings": "Cài đặt",
+  "breakfast": "Bữa sáng",
+  "lunch": "Bữa trưa",
+  "dinner": "Bữa tối",
+  "snack": "Bữa phụ",
+  "protein": "Chất đạm (Protein)",
+  "carb": "Tinh bột (Carb)",
+  "fat": "Chất béo (Fat)",
+  "proteinShort": "Protein",
+  "carbShort": "Carb",
+  "fatShort": "Fat",
+  "gender": "Giới tính",
+  "male": "Nam",
+  "female": "Nữ",
+  "age": "Tuổi",
+  "height": "Chiều cao",
+  "weight": "Cân nặng",
+  "activityLevel": "Mức độ vận động",
+  "sedentary": "Ít vận động (ngồi nhiều, không tập thể dục)",
+  "lightActivity": "Vận động nhẹ (tập luyện nhẹ 1-3 ngày/tuần)",
+  "moderateActivity": "Vận động vừa (tập thể thao 3-5 ngày/tuần)",
+  "veryActive": "Vận động nhiều (tập nặng 6-7 ngày/tuần)",
+  "extraActive": "Rất nhiều (vận động viên / lao động thể lực)",
+  "goal": "Mục tiêu thể trạng",
+  "maintainWeight": "Giữ cân",
+  "loseWeight": "Giảm cân (-500 kcal/ngày)",
+  "gainWeight": "Tăng cân (+300 kcal/ngày)",
+  "recentFoods": "Gần đây",
+  "favoriteFoods": "Yêu thích",
+  "allFoods": "Tất cả",
+  "copyYesterdayMeal": "Sao chép bữa này từ hôm qua",
+  "copyYesterdaySuccess": "Đã sao chép các món từ hôm qua",
+  "noYesterdayItems": "Không có món nào ở bữa này hôm qua",
+  "addCustomFood": "Thêm món tùy chỉnh",
+  "quickAddCalories": "Thêm nhanh calo",
+  "foodSearchPlaceholder": "Tìm món ăn (vd: pho bo, com tam)...",
+  "servingSize": "Khẩu phần",
+  "customFoodName": "Tên món ăn",
+  "quickAddName": "Tên món / mô tả",
+  "kcalPer100g": "Calo (kcal / 100g)",
+  "defaultServing": "Khẩu phần mặc định (g)",
+  "servingUnit": "Đơn vị tính (bát, đĩa, cái...)",
+  "foodAddedSuccess": "Đã thêm món vào nhật ký",
+  "foodDeleted": "Đã xóa món ăn",
+  "editProfile": "Chỉnh sửa hồ sơ",
+  "calorieTarget": "Mục tiêu calo",
+  "macroRatio": "Tỉ lệ phân bổ macro",
+  "units": "Đơn vị đo",
+  "metricUnit": "Hệ Mét (kg, cm)",
+  "imperialUnit": "Hệ Anh-Mỹ (lb, ft/in)",
+  "language": "Ngôn ngữ",
+  "themeMode": "Giao diện",
+  "themeSystem": "Theo hệ thống",
+  "themeLight": "Sáng",
+  "themeDark": "Tối",
+  "deleteAllData": "Xóa toàn bộ dữ liệu",
+  "deleteAllDataConfirm": "Hành động này sẽ xóa vĩnh viễn toàn bộ nhật ký, món tùy chỉnh và hồ sơ. Bạn không thể hoàn tác.",
+  "dataClearedSuccess": "Đã xóa toàn bộ dữ liệu",
+  "bmrExplanation": "BMR (Chỉ số trao đổi chất cơ bản): Năng lượng cơ thể tiêu thụ khi nghỉ ngơi hoàn toàn.",
+  "tdeeExplanation": "TDEE (Tổng năng lượng tiêu hao hằng ngày): BMR nhân với hệ số vận động.",
+  "targetExplanation": "Mục tiêu calo = TDEE điều chỉnh theo mục tiêu cân nặng (làm tròn đến 10 kcal).",
+  "formulaSummaryTitle": "Chỉ số năng lượng ước tính",
+  "getStarted": "Bắt đầu sử dụng",
+  "emptyDiary": "Chưa có món ăn nào trong ngày hôm nay",
+  "tapToAdd": "Chạm vào nút + để ghi món đầu tiên",
+  "dayView": "Ngày",
+  "weekView": "Tuần",
+  "monthView": "Tháng",
+  "dailyAverage": "Trung bình/ngày",
+  "macroAverage": "Macro trung bình",
+  "categoryAll": "Tất cả",
+  "categoryCarb": "Tinh bột",
+  "categoryMeat": "Thịt",
+  "categoryFishSeafood": "Cá & Hải sản",
+  "categoryEggDairy": "Trứng & Sữa",
+  "categoryVegetable": "Rau củ",
+  "categoryFruit": "Trái cây",
+  "categoryDrink": "Đồ uống",
+  "categorySnack": "Ăn vặt",
+  "categoryOther": "Khác",
+  "noFoodsFound": "Không tìm thấy món ăn nào phù hợp",
+  "estimatedFromMacros": "Ước tính từ macro: {kcal} kcal",
+  "@estimatedFromMacros": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "servingUnitBowl": "Tô / Bát",
+  "servingUnitPlate": "Đĩa / Dĩa",
+  "servingUnitPiece": "Cái / Chiếc / Quả",
+  "servingUnitCup": "Ly / Cốc",
+  "servingUnitPortion": "Phần / Suất",
+  "servingUnitCan": "Lon / Hộp"
+}
