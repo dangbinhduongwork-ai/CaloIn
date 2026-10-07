@@ -7,6 +7,7 @@ import '../../features/diary/presentation/quick_add_screen.dart';
 import '../../features/foods/presentation/custom_food_screen.dart';
 import '../../features/foods/presentation/food_library_screen.dart';
 import '../../features/history/presentation/history_screen.dart';
+import '../../features/profile/data/profile_providers.dart';
 import '../../features/profile/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/onboarding_summary_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
@@ -19,9 +20,29 @@ final _historyNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'history');
 final _settingsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
 
 final appRouterProvider = Provider<GoRouter>((ref) {
+  final profileAsync = ref.watch(profileProvider);
+
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
+    redirect: (context, state) {
+      if (profileAsync.isLoading) {
+        return null;
+      }
+
+      final hasProfile = profileAsync.value != null;
+      final isGoingToOnboarding = state.matchedLocation.startsWith('/onboarding');
+
+      if (!hasProfile && !isGoingToOnboarding) {
+        return '/onboarding';
+      }
+
+      if (hasProfile && isGoingToOnboarding) {
+        return '/';
+      }
+
+      return null;
+    },
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

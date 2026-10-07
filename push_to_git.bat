@@ -5,7 +5,7 @@ echo ===========================================
 
 git init
 git add .
-git commit -m "feat: complete phase 1, 2, and 3 for CaloIn"
+git commit -m "feat: complete phase 1, 2, 3, and 4 for CaloIn"
 git branch -M main
 git remote remove origin 2>nul
 git remote add origin https://github.com/dangbinhduongwork-ai/CaloIn.git
