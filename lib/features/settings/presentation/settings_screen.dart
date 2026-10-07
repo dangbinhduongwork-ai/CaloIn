@@ -259,6 +259,7 @@ class SettingsScreen extends ConsumerWidget {
                     ButtonSegment(value: WeightUnit.lb, label: Text('lb')),
                   ],
                   selected: {settings.weightUnit},
+                  showSelectedIcon: false,
                   onSelectionChanged: (newVal) {
                     ref.read(settingsProvider.notifier).setWeightUnit(newVal.first);
                   },
@@ -277,6 +278,7 @@ class SettingsScreen extends ConsumerWidget {
                     ButtonSegment(value: HeightUnit.ftIn, label: Text('ft/in')),
                   ],
                   selected: {settings.heightUnit},
+                  showSelectedIcon: false,
                   onSelectionChanged: (newVal) {
                     ref.read(settingsProvider.notifier).setHeightUnit(newVal.first);
                   },
@@ -308,48 +310,49 @@ class SettingsScreen extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(l10n.themeMode, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                SegmentedButton<ThemeMode>(
-                  segments: [
-                    ButtonSegment(value: ThemeMode.system, label: Text(l10n.themeSystem)),
-                    ButtonSegment(value: ThemeMode.light, label: Text(l10n.themeLight)),
-                    ButtonSegment(value: ThemeMode.dark, label: Text(l10n.themeDark)),
-                  ],
-                  selected: {currentTheme},
-                  onSelectionChanged: (newVal) {
-                    ref.read(themeModeProvider.notifier).setThemeMode(newVal.first);
-                  },
-                  style: const ButtonStyle(visualDensity: VisualDensity.compact),
-                ),
+            Text(l10n.themeMode, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+            const SizedBox(height: 10),
+            SegmentedButton<ThemeMode>(
+              segments: [
+                ButtonSegment(value: ThemeMode.system, label: Text(l10n.themeSystem)),
+                ButtonSegment(value: ThemeMode.light, label: Text(l10n.themeLight)),
+                ButtonSegment(value: ThemeMode.dark, label: Text(l10n.themeDark)),
               ],
+              selected: {currentTheme},
+              showSelectedIcon: false,
+              onSelectionChanged: (newVal) {
+                ref.read(themeModeProvider.notifier).setThemeMode(newVal.first);
+              },
+              style: const ButtonStyle(
+                visualDensity: VisualDensity.compact,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
             ),
             const Divider(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(l10n.language, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                SegmentedButton<String>(
-                  segments: const [
-                    ButtonSegment(value: 'system', label: Text('Hệ thống')),
-                    ButtonSegment(value: 'vi', label: Text('Tiếng Việt')),
-                    ButtonSegment(value: 'en', label: Text('English')),
-                  ],
-                  selected: {currentLocale == null ? 'system' : currentLocale.languageCode},
-                  onSelectionChanged: (newVal) {
-                    final code = newVal.first;
-                    if (code == 'system') {
-                      ref.read(localeProvider.notifier).setLocale(null);
-                    } else {
-                      ref.read(localeProvider.notifier).setLocale(Locale(code));
-                    }
-                  },
-                  style: const ButtonStyle(visualDensity: VisualDensity.compact),
-                ),
+            Text(l10n.language, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+            const SizedBox(height: 10),
+            SegmentedButton<String>(
+              segments: const [
+                ButtonSegment(value: 'system', label: Text('Hệ thống')),
+                ButtonSegment(value: 'vi', label: Text('Tiếng Việt')),
+                ButtonSegment(value: 'en', label: Text('English')),
               ],
+              selected: {currentLocale == null ? 'system' : currentLocale.languageCode},
+              showSelectedIcon: false,
+              onSelectionChanged: (newVal) {
+                final code = newVal.first;
+                if (code == 'system') {
+                  ref.read(localeProvider.notifier).setLocale(null);
+                } else {
+                  ref.read(localeProvider.notifier).setLocale(Locale(code));
+                }
+              },
+              style: const ButtonStyle(
+                visualDensity: VisualDensity.compact,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
             ),
           ],
         ),

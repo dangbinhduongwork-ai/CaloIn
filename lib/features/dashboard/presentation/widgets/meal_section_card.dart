@@ -81,8 +81,65 @@ class MealSectionCard extends ConsumerWidget {
           targetDate: entry.loggedAt,
           existingEntry: entry,
         );
+        return;
       }
     }
+
+    if (context.mounted) {
+      _showQuickEntryOptions(context, ref, entry);
+    }
+  }
+
+  Future<void> _showQuickEntryOptions(BuildContext context, WidgetRef ref, FoodLogEntry entry) async {
+    await showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    entry.foodNameSnapshot,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Text(
+                  AppFormatters.formatKcalWithUnit(entry.nutrition.kcal),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Đạm: ${entry.nutrition.protein.toStringAsFixed(1)}g • Carb: ${entry.nutrition.carb.toStringAsFixed(1)}g • Béo: ${entry.nutrition.fat.toStringAsFixed(1)}g',
+              style: const TextStyle(fontSize: 13, color: Colors.grey),
+            ),
+            const SizedBox(height: 24),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.redAccent,
+                side: const BorderSide(color: Colors.redAccent),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              icon: const Icon(Icons.delete_outline_rounded),
+              label: const Text('Xóa khẩu phần này'),
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                _deleteEntryWithUndo(context, ref, entry);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _deleteEntryWithUndo(BuildContext context, WidgetRef ref, FoodLogEntry entry) async {
@@ -257,6 +314,44 @@ class MealSectionCard extends ConsumerWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
+                            ),
+                            PopupMenuButton<String>(
+                              icon: Icon(
+                                Icons.more_vert_rounded,
+                                size: 18,
+                                color: isDark ? Colors.white54 : Colors.black45,
+                              ),
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onSelected: (val) {
+                                if (val == 'edit') {
+                                  _editEntry(context, ref, entry);
+                                } else if (val == 'delete') {
+                                  _deleteEntryWithUndo(context, ref, entry);
+                                }
+                              },
+                              itemBuilder: (ctx) => [
+                                const PopupMenuItem(
+                                  value: 'edit',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit_outlined, size: 18),
+                                      SizedBox(width: 8),
+                                      Text('Sửa khẩu phần'),
+                                    ],
+                                  ),
+                                ),
+                                const PopupMenuItem(
+                                  value: 'delete',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.delete_outline_rounded, size: 18, color: Colors.redAccent),
+                                      SizedBox(width: 8),
+                                      Text('Xóa khẩu phần', style: TextStyle(color: Colors.redAccent)),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

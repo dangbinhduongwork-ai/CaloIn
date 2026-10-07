@@ -220,13 +220,20 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
                         const SizedBox(height: 6),
                         DropdownButtonFormField<String>(
                           value: _selectedCategory,
+                          isExpanded: true,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                          ),
                           items: [
                             'carb', 'meat', 'fish_seafood', 'egg_dairy',
                             'vegetable', 'fruit', 'drink', 'snack', 'other'
                           ].map((cat) {
                             return DropdownMenuItem(
                               value: cat,
-                              child: Text(_getCategoryName(context, cat)),
+                              child: Text(
+                                _getCategoryName(context, cat),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             );
                           }).toList(),
                           onChanged: (val) {
@@ -241,14 +248,26 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(l10n.servingUnit, style: const TextStyle(fontWeight: FontWeight.w600)),
+                        const Text(
+                          'Đơn vị tính',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         const SizedBox(height: 6),
                         DropdownButtonFormField<String>(
                           value: _selectedServingLabel,
+                          isExpanded: true,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                          ),
                           items: ['portion', 'bowl', 'plate', 'piece', 'cup', 'can'].map((unit) {
                             return DropdownMenuItem(
                               value: unit,
-                              child: Text(_getServingUnitLabel(context, unit)),
+                              child: Text(
+                                _getServingUnitLabel(context, unit),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             );
                           }).toList(),
                           onChanged: (val) {
@@ -279,7 +298,7 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Đạm (P/100g)', style: TextStyle(fontWeight: FontWeight.w600)),
+                        const Text('Đạm (P/100g)', style: TextStyle(fontWeight: FontWeight.w600), maxLines: 1, overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _proteinController,
@@ -295,7 +314,7 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Carb (C/100g)', style: TextStyle(fontWeight: FontWeight.w600)),
+                        const Text('Carb (C/100g)', style: TextStyle(fontWeight: FontWeight.w600), maxLines: 1, overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _carbController,
@@ -311,7 +330,7 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Béo (F/100g)', style: TextStyle(fontWeight: FontWeight.w600)),
+                        const Text('Béo (F/100g)', style: TextStyle(fontWeight: FontWeight.w600), maxLines: 1, overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _fatController,

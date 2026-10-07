@@ -190,6 +190,53 @@ class _FoodPortionBottomSheetState extends ConsumerState<FoodPortionBottomSheet>
     }
   }
 
+  Future<void> _confirmDeleteEntry() async {
+    final entry = widget.existingEntry;
+    if (entry == null) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Xóa khẩu phần?'),
+        content: Text('Bạn có chắc chắn muốn xóa "${entry.foodNameSnapshot}" khỏi ${_getMealName(context, _selectedMeal)}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('Hủy'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('Xóa'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      final repo = ref.read(foodLogRepositoryProvider);
+      await repo.delete(entry.id);
+
+      if (mounted) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Đã xóa ${entry.foodNameSnapshot}'),
+            action: SnackBarAction(
+              label: 'Hoàn tác',
+              textColor: AppColors.primaryContainer,
+              onPressed: () async {
+                await repo.add(entry);
+              },
+            ),
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -246,6 +293,12 @@ class _FoodPortionBottomSheetState extends ConsumerState<FoodPortionBottomSheet>
                   ],
                 ),
               ),
+              if (widget.existingEntry != null)
+                IconButton(
+                  icon: const Icon(Icons.delete_outline_rounded, color: Colors.redAccent),
+                  tooltip: 'Xóa khẩu phần',
+                  onPressed: _confirmDeleteEntry,
+                ),
               // Meal Dropdown
               DropdownButton<MealType>(
                 value: _selectedMeal,
@@ -385,14 +438,47 @@ class _FoodPortionBottomSheetState extends ConsumerState<FoodPortionBottomSheet>
           const SizedBox(height: 20),
 
           // Confirm Action Button
-          FilledButton(
-            onPressed: _grams > 0 ? _saveEntry : null,
-            child: Text(
-              widget.existingEntry != null
-                  ? 'Cập nhật khẩu phần'
-                  : 'Thêm vào ${_getMealName(context, _selectedMeal)}',
+          if (widget.existingEntry != null) ...[
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.redAccent,
+                      side: const BorderSide(color: Colors.redAccent),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    icon: const Icon(Icons.delete_outline_rounded, size: 18),
+                    label: const Text('Xóa', style: TextStyle(fontWeight: FontWeight.bold)),
+                    onPressed: _confirmDeleteEntry,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  flex: 3,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    onPressed: _grams > 0 ? _saveEntry : null,
+                    child: const Text('Cập nhật khẩu phần', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ],
             ),
-          ),
+          ] else ...[
+            FilledButton(
+              style: FilledButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              onPressed: _grams > 0 ? _saveEntry : null,
+              child: Text(
+                'Thêm vào ${_getMealName(context, _selectedMeal)}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
         ],
       ),
     );

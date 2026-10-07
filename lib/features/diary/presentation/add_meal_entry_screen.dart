@@ -107,25 +107,33 @@ class _AddMealEntryScreenState extends ConsumerState<AddMealEntryScreen> with Si
         children: [
           // Meal Selector Chips
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: isDark ? AppColors.surfaceDark : AppColors.surfaceVariantLight.withOpacity(0.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: MealType.values.map((meal) {
-                final isSelected = _selectedMeal == meal;
-                return ChoiceChip(
-                  label: Text(_getMealName(context, meal)),
-                  selected: isSelected,
-                  onSelected: (selected) {
-                    if (selected) setState(() => _selectedMeal = meal);
-                  },
-                  selectedColor: AppColors.primaryContainer,
-                  labelStyle: TextStyle(
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                    color: isSelected ? AppColors.primaryDark : null,
-                  ),
-                );
-              }).toList(),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            color: isDark ? AppColors.surfaceDark : AppColors.surfaceVariantLight.withAlpha(128),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  for (int i = 0; i < MealType.values.length; i++) ...[
+                    ChoiceChip(
+                      showCheckmark: false,
+                      label: Text(_getMealName(context, MealType.values[i])),
+                      selected: _selectedMeal == MealType.values[i],
+                      onSelected: (selected) {
+                        if (selected) setState(() => _selectedMeal = MealType.values[i]);
+                      },
+                      selectedColor: AppColors.primaryContainer,
+                      labelStyle: TextStyle(
+                        fontWeight: _selectedMeal == MealType.values[i] ? FontWeight.bold : FontWeight.w500,
+                        color: _selectedMeal == MealType.values[i] ? AppColors.primaryDark : null,
+                      ),
+                      visualDensity: VisualDensity.compact,
+                    ),
+                    if (i < MealType.values.length - 1) const SizedBox(width: 8),
+                  ],
+                ],
+              ),
             ),
           ),
 
